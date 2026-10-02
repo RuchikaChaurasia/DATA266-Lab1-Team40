@@ -1,0 +1,26 @@
+metric,value,notes
+train_cross_entropy,0.6077407336694323,"nats/char, eval mode, best checkpoint"
+val_cross_entropy,0.6150378939805364,"nats/char, full validation set"
+perplexity,1.8497266917375372,"exp(val CE), character level"
+bits_per_character,0.887312119604512,val CE / ln 2
+generalization_gap,0.007297160311104167,val CE - train CE
+top1_next_char_accuracy,0.8042104806141841,validation
+distinct_1,0.2977667493796526,"word level, T=0.7"
+distinct_2,0.7123115577889447,"word level, T=0.7"
+distinct_3,0.8765903307888041,"word level, T=0.7"
+repeated_4gram_rate,0.01850094155866705,"word level, T=0.7"
+greedy_repeated_4gram_rate,0.34288188980202444,greedy decoding
+grad_norm_mean,0.22669579555977065,"pre-clip, all epochs"
+grad_norm_max,8.937939643859863,"pre-clip, all epochs"
+loss_spikes,0,loss > 1.5 x EMA after warm-up
+nan_losses,0,non-finite training losses
+amp_overflow_skips,7,fp16 steps skipped by GradScaler
+parameter_count,3249152,unique trainable parameters
+train_tokens_per_sec,1365667.3037552554,excludes eval time
+generation_tokens_per_sec,307.33896268750124,"batch 1, 400 chars"
+peak_memory_mb,3054.68359375,torch.cuda.max_memory_allocated during training
+total_training_time_min,10.953320738416657,sum of epoch times
+epochs,10,
+best_epoch,10,
+checkpoint_id,bceaa3cfc2f2,sha256[:12] of checkpoints/best.pt
+hardware,NVIDIA GeForce RTX 5090 / Intel(R) Core(TM) Ultra 9 285K,

@@ -1,0 +1,106 @@
+{
+  "task": "task1_llm",
+  "member": "ruchika_chaurasia",
+  "created": "20261002_000259",
+  "smoke_run": false,
+  "git_commit": "unknown (not a git checkout)",
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) Ultra 9 285K",
+    "cpu_count": 24,
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.13",
+    "torch": "2.11.0+cu128",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 5090",
+    "gpu_memory_gb": 31.84,
+    "cuda": "12.8",
+    "cudnn": 91900
+  },
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "numpy": "1.26.2",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.9",
+    "datasets": "5.0.1",
+    "nltk": "3.10.3",
+    "torchmetrics": "1.9.0",
+    "torch-fidelity": "0.4.0",
+    "pyyaml": "6.0.1"
+  },
+  "config": {
+    "member": "ruchika_chaurasia",
+    "lineup": "A",
+    "sid4": 8283,
+    "seed": 8283,
+    "data": {
+      "hf_name": "roneneldan/TinyStories",
+      "split_source": "train",
+      "local_text_file": null,
+      "n_train_stories": 100000,
+      "n_val_stories": 10000,
+      "min_char_freq": 5
+    },
+    "model": {
+      "n_layer": 4,
+      "n_head": 4,
+      "d_model": 256,
+      "block_size": 256,
+      "dropout": 0.1,
+      "ffn_mult": 4,
+      "tie_weights": true
+    },
+    "train": {
+      "epochs": 10,
+      "batch_size": 128,
+      "lr": 0.001,
+      "min_lr": 0.0001,
+      "warmup_steps": 500,
+      "schedule": "cosine",
+      "weight_decay": 0.1,
+      "betas": [
+        0.9,
+        0.95
+      ],
+      "grad_clip": 1.0,
+      "amp": true,
+      "eval_max_seqs": 4000,
+      "spike_factor": 1.5,
+      "resume": true
+    },
+    "generation": {
+      "prompts": [
+        "Once upon a time",
+        "Tom and Lily went to the park",
+        "The little dog was sad because",
+        "One day, a girl named Mia found a",
+        "The big red ball"
+      ],
+      "temperatures": [
+        0.0,
+        0.7,
+        1.0
+      ],
+      "headline_temperature": 0.7,
+      "samples_per_prompt": 2,
+      "max_new_chars": 400,
+      "top_k": null
+    },
+    "rationale": "* Small and wide-context: 4 layers x 256 dims (~3.2M params) is enough capacity for TinyStories'\n  ~1.5K-word vocabulary (Eldan & Li, 2023 show very small models already produce fluent stories), and\n  it trains 10 full epochs on a single T4 in roughly an hour.\n* Context of 256 characters (~50 words) lets attention see about two sentences, which is what a\n  character model needs to keep names and subjects consistent.\n* Weight tying reduces parameters and ties the input and output character representations together,\n  which usually lowers validation loss for small vocabularies.\n* lr 1e-3 with 500 warm-up steps and cosine decay: small models tolerate a high peak LR; warm-up\n  avoids early Adam instability, and cosine decay gives a low final LR for a good last checkpoint.\n* Dropout 0.1 because 100K stories x 10 epochs is enough data that heavy regularisation is not needed.\n"
+  },
+  "checkpoints": {
+    "best": {
+      "path": "task1_llm/ruchika_chaurasia/checkpoints/best.pt",
+      "checkpoint_id": "bceaa3cfc2f2",
+      "size_mb": 12.45
+    }
+  },
+  "results_files": [
+    "task1_llm/ruchika_chaurasia/metrics_report.csv",
+    "task1_llm/ruchika_chaurasia/results.md",
+    "task1_llm/ruchika_chaurasia/outputs/loss_curves.png"
+  ],
+  "raw_log": "reproducibility/raw_logs/task1_llm_ruchika_chaurasia_20261001_235055.log"
+}

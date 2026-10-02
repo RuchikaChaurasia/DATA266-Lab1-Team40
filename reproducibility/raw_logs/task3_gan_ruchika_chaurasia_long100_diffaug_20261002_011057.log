@@ -1,0 +1,171 @@
+[2026-10-02 01:10:57] raw log started: reproducibility/raw_logs/task3_gan_ruchika_chaurasia_long100_diffaug_20261002_011057.log
+[2026-10-02 01:10:57] member: ruchika_chaurasia | run: long100_diffaug | config: config_long100_diffaug.yaml | lineup: A | seed: 8283 | smoke: False
+[2026-10-02 01:10:57] hardware: {"cpu": "Intel(R) Core(TM) Ultra 9 285K", "cpu_count": 24, "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31", "python": "3.10.13", "torch": "2.11.0+cu128", "cuda_available": true, "gpu": "NVIDIA GeForce RTX 5090", "gpu_memory_gb": 31.84, "cuda": "12.8", "cudnn": 91900}
+[2026-10-02 01:10:57] config: {"member": "ruchika_chaurasia", "lineup": "A", "sid4": 8283, "seed": 8283, "data": {"photo_dir": "task3_gan/data/photo_jpg", "monet_dir": "task3_gan/data/monet_jpg", "image_size": 256, "load_size": 286, "max_train_photos": null}, "model": {"generator": "resnet", "ngf": 64, "n_res_blocks": 9, "ndf": 64, "d_layers": 3}, "train": {"gan_loss": "lsgan", "lambda_cycle": 10.0, "lambda_identity": 0.5, "lr": 0.0002, "beta1": 0.5, "batch_size": 1, "epochs": 100, "decay_start_epoch": 50, "steps_per_epoch": 1000, "pool_size": 50, "grad_clip": null, "amp": true, "diffaugment": "color,translation,cutout", "log_every": 50, "sample_every_epochs": 1, "resume": true}, "kaggle": {"public_score": null, "private_score": null, "rank": null}, "rationale": "* Same as 'long100' plus DiffAugment (Zhao et al., 2020) on every discriminator input, real and fake.\n* Hypothesis: with only 300 Monet paintings, D_A can memorise the training set late in a long run, which\n  gives G poor gradients and causes artefacts. Differentiable augmentation applied identically to real and fake\n  images prevents that without changing what the generator is asked to produce.\n* Tests the effect of data-efficient GAN training on the painting domain (compare with 'long100').\n"}
+[2026-10-02 01:11:49] Monet (A): 300 | train photos (B): 6,538 | held-out eval photos: 500 | audit photos: 30 | loaded in 52s
+[2026-10-02 01:11:51] parameters: {"G_AB": 11378179, "G_BA": 11378179, "D_A": 2764737, "D_B": 2764737} | total: 28,285,832
+[2026-10-02 01:11:51] shape check: G_AB (1, 3, 256, 256) | D_B patch grid (1, 1, 30, 30)
+[2026-10-02 01:11:51] DiffAugment policy: color,translation,cutout
+[2026-10-02 01:14:28] EPOCH 1/100 (2.6 min): G 9.316 | D_A 0.364 D_B 0.362 | cyc 2.811/2.987 | idt 1.330/1.368 | |g| G 45.90 D 23.66 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:17:11] EPOCH 2/100 (2.7 min): G 7.756 | D_A 0.252 D_B 0.274 | cyc 2.340/2.492 | idt 1.094/1.103 | |g| G 37.11 D 21.57 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:19:54] EPOCH 3/100 (2.7 min): G 7.069 | D_A 0.245 D_B 0.258 | cyc 2.081/2.251 | idt 0.971/1.006 | |g| G 33.24 D 21.95 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:22:40] EPOCH 4/100 (2.7 min): G 6.781 | D_A 0.245 D_B 0.254 | cyc 2.019/2.096 | idt 0.947/0.947 | |g| G 32.13 D 21.26 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:25:25] EPOCH 5/100 (2.7 min): G 6.490 | D_A 0.251 D_B 0.253 | cyc 1.913/2.029 | idt 0.892/0.919 | |g| G 31.70 D 19.81 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:28:06] EPOCH 6/100 (2.6 min): G 6.184 | D_A 0.251 D_B 0.248 | cyc 1.845/1.867 | idt 0.868/0.860 | |g| G 29.32 D 19.91 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:30:47] EPOCH 7/100 (2.6 min): G 6.110 | D_A 0.248 D_B 0.252 | cyc 1.787/1.849 | idt 0.840/0.855 | |g| G 28.99 D 19.38 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:33:27] EPOCH 8/100 (2.6 min): G 5.921 | D_A 0.247 D_B 0.249 | cyc 1.756/1.775 | idt 0.822/0.832 | |g| G 28.14 D 18.05 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:36:05] EPOCH 9/100 (2.6 min): G 5.892 | D_A 0.248 D_B 0.251 | cyc 1.723/1.782 | idt 0.810/0.820 | |g| G 28.47 D 18.42 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:38:35] EPOCH 10/100 (2.5 min): G 5.610 | D_A 0.247 D_B 0.247 | cyc 1.638/1.665 | idt 0.779/0.770 | |g| G 27.73 D 17.68 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:41:13] EPOCH 11/100 (2.6 min): G 5.555 | D_A 0.249 D_B 0.246 | cyc 1.625/1.635 | idt 0.763/0.767 | |g| G 27.23 D 17.17 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:44:00] EPOCH 12/100 (2.7 min): G 5.525 | D_A 0.242 D_B 0.236 | cyc 1.591/1.616 | idt 0.744/0.770 | |g| G 27.83 D 17.33 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:46:41] EPOCH 13/100 (2.6 min): G 5.406 | D_A 0.246 D_B 0.234 | cyc 1.531/1.615 | idt 0.723/0.757 | |g| G 27.04 D 16.91 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:49:25] EPOCH 14/100 (2.7 min): G 5.345 | D_A 0.240 D_B 0.231 | cyc 1.522/1.563 | idt 0.720/0.733 | |g| G 27.02 D 17.02 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:52:08] EPOCH 15/100 (2.7 min): G 5.439 | D_A 0.239 D_B 0.227 | cyc 1.546/1.600 | idt 0.727/0.744 | |g| G 27.56 D 16.98 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:54:46] EPOCH 16/100 (2.6 min): G 5.158 | D_A 0.240 D_B 0.230 | cyc 1.456/1.486 | idt 0.686/0.705 | |g| G 26.39 D 16.34 | lr 2.00e-04 | NaN 0
+[2026-10-02 01:57:28] EPOCH 17/100 (2.7 min): G 5.269 | D_A 0.239 D_B 0.221 | cyc 1.503/1.528 | idt 0.708/0.705 | |g| G 27.63 D 16.28 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:00:13] EPOCH 18/100 (2.7 min): G 5.272 | D_A 0.239 D_B 0.214 | cyc 1.457/1.538 | idt 0.690/0.722 | |g| G 27.81 D 16.32 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:02:50] EPOCH 19/100 (2.6 min): G 5.039 | D_A 0.235 D_B 0.213 | cyc 1.375/1.464 | idt 0.654/0.687 | |g| G 26.88 D 16.15 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:05:33] EPOCH 20/100 (2.7 min): G 5.016 | D_A 0.236 D_B 0.211 | cyc 1.398/1.417 | idt 0.662/0.674 | |g| G 27.58 D 16.00 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:08:14] EPOCH 21/100 (2.6 min): G 5.213 | D_A 0.231 D_B 0.210 | cyc 1.446/1.494 | idt 0.702/0.682 | |g| G 29.34 D 16.22 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:10:56] EPOCH 22/100 (2.7 min): G 5.081 | D_A 0.230 D_B 0.211 | cyc 1.404/1.449 | idt 0.672/0.677 | |g| G 28.44 D 15.96 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:13:37] EPOCH 23/100 (2.6 min): G 4.905 | D_A 0.223 D_B 0.210 | cyc 1.330/1.395 | idt 0.645/0.658 | |g| G 27.29 D 15.03 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:16:16] EPOCH 24/100 (2.6 min): G 4.956 | D_A 0.220 D_B 0.206 | cyc 1.353/1.386 | idt 0.648/0.655 | |g| G 27.83 D 15.24 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:18:55] EPOCH 25/100 (2.6 min): G 4.937 | D_A 0.209 D_B 0.212 | cyc 1.314/1.408 | idt 0.629/0.663 | |g| G 29.64 D 15.56 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:21:37] EPOCH 26/100 (2.7 min): G 5.006 | D_A 0.198 D_B 0.202 | cyc 1.341/1.381 | idt 0.645/0.649 | |g| G 31.90 D 16.06 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:24:21] EPOCH 27/100 (2.7 min): G 4.818 | D_A 0.206 D_B 0.208 | cyc 1.283/1.350 | idt 0.620/0.648 | |g| G 29.86 D 15.31 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:26:59] EPOCH 28/100 (2.6 min): G 4.826 | D_A 0.197 D_B 0.210 | cyc 1.278/1.355 | idt 0.623/0.639 | |g| G 30.88 D 15.25 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:29:46] EPOCH 29/100 (2.7 min): G 4.729 | D_A 0.202 D_B 0.209 | cyc 1.248/1.323 | idt 0.602/0.637 | |g| G 29.72 D 14.79 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:32:31] EPOCH 30/100 (2.7 min): G 4.787 | D_A 0.203 D_B 0.210 | cyc 1.243/1.351 | idt 0.608/0.638 | |g| G 30.51 D 15.04 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:35:11] EPOCH 31/100 (2.6 min): G 4.695 | D_A 0.203 D_B 0.212 | cyc 1.230/1.320 | idt 0.603/0.624 | |g| G 29.70 D 14.32 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:37:48] EPOCH 32/100 (2.6 min): G 4.707 | D_A 0.198 D_B 0.204 | cyc 1.232/1.310 | idt 0.600/0.628 | |g| G 29.35 D 14.25 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:40:32] EPOCH 33/100 (2.7 min): G 4.668 | D_A 0.206 D_B 0.212 | cyc 1.218/1.299 | idt 0.601/0.615 | |g| G 29.02 D 14.27 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:43:04] EPOCH 34/100 (2.5 min): G 4.702 | D_A 0.194 D_B 0.211 | cyc 1.195/1.336 | idt 0.597/0.627 | |g| G 28.23 D 13.52 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:45:45] EPOCH 35/100 (2.6 min): G 4.577 | D_A 0.198 D_B 0.206 | cyc 1.168/1.288 | idt 0.573/0.613 | |g| G 27.90 D 13.67 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:48:31] EPOCH 36/100 (2.7 min): G 4.492 | D_A 0.205 D_B 0.214 | cyc 1.140/1.280 | idt 0.564/0.607 | |g| G 26.82 D 13.22 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:51:19] EPOCH 37/100 (2.7 min): G 4.576 | D_A 0.196 D_B 0.205 | cyc 1.168/1.300 | idt 0.573/0.612 | |g| G 27.45 D 13.35 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:53:59] EPOCH 38/100 (2.6 min): G 4.508 | D_A 0.198 D_B 0.203 | cyc 1.143/1.264 | idt 0.564/0.602 | |g| G 26.55 D 12.98 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:56:45] EPOCH 39/100 (2.7 min): G 4.410 | D_A 0.202 D_B 0.202 | cyc 1.102/1.239 | idt 0.550/0.595 | |g| G 25.42 D 12.77 | lr 2.00e-04 | NaN 0
+[2026-10-02 02:59:25] EPOCH 40/100 (2.6 min): G 4.475 | D_A 0.199 D_B 0.211 | cyc 1.145/1.251 | idt 0.567/0.597 | |g| G 26.22 D 12.75 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:02:10] EPOCH 41/100 (2.7 min): G 4.421 | D_A 0.196 D_B 0.208 | cyc 1.108/1.253 | idt 0.553/0.587 | |g| G 25.61 D 12.42 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:04:45] EPOCH 42/100 (2.5 min): G 4.395 | D_A 0.204 D_B 0.204 | cyc 1.084/1.266 | idt 0.545/0.600 | |g| G 25.28 D 12.17 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:07:24] EPOCH 43/100 (2.6 min): G 4.388 | D_A 0.200 D_B 0.207 | cyc 1.096/1.255 | idt 0.547/0.593 | |g| G 25.02 D 12.27 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:10:04] EPOCH 44/100 (2.6 min): G 4.308 | D_A 0.198 D_B 0.209 | cyc 1.066/1.242 | idt 0.533/0.587 | |g| G 24.86 D 11.86 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:12:47] EPOCH 45/100 (2.7 min): G 4.299 | D_A 0.198 D_B 0.206 | cyc 1.071/1.211 | idt 0.533/0.579 | |g| G 25.17 D 11.85 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:15:25] EPOCH 46/100 (2.6 min): G 4.366 | D_A 0.196 D_B 0.199 | cyc 1.057/1.238 | idt 0.523/0.589 | |g| G 24.92 D 11.99 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:18:04] EPOCH 47/100 (2.6 min): G 4.312 | D_A 0.198 D_B 0.198 | cyc 1.073/1.212 | idt 0.530/0.576 | |g| G 25.20 D 11.53 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:20:40] EPOCH 48/100 (2.6 min): G 4.333 | D_A 0.196 D_B 0.200 | cyc 1.063/1.230 | idt 0.537/0.581 | |g| G 24.93 D 11.34 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:23:25] EPOCH 49/100 (2.7 min): G 4.324 | D_A 0.193 D_B 0.200 | cyc 1.050/1.230 | idt 0.525/0.582 | |g| G 24.94 D 11.56 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:26:03] EPOCH 50/100 (2.6 min): G 4.241 | D_A 0.196 D_B 0.204 | cyc 1.037/1.208 | idt 0.526/0.563 | |g| G 25.08 D 11.26 | lr 2.00e-04 | NaN 0
+[2026-10-02 03:28:47] EPOCH 51/100 (2.7 min): G 4.143 | D_A 0.199 D_B 0.200 | cyc 1.017/1.148 | idt 0.516/0.542 | |g| G 24.32 D 11.27 | lr 1.96e-04 | NaN 0
+[2026-10-02 03:31:30] EPOCH 52/100 (2.7 min): G 4.257 | D_A 0.193 D_B 0.201 | cyc 1.031/1.234 | idt 0.515/0.564 | |g| G 25.08 D 11.25 | lr 1.92e-04 | NaN 0
+[2026-10-02 03:34:16] EPOCH 53/100 (2.7 min): G 4.141 | D_A 0.194 D_B 0.197 | cyc 1.002/1.184 | idt 0.502/0.555 | |g| G 24.03 D 10.96 | lr 1.88e-04 | NaN 0
+[2026-10-02 03:36:51] EPOCH 54/100 (2.6 min): G 4.178 | D_A 0.195 D_B 0.194 | cyc 1.009/1.180 | idt 0.509/0.568 | |g| G 23.47 D 10.80 | lr 1.84e-04 | NaN 0
+[2026-10-02 03:39:31] EPOCH 55/100 (2.6 min): G 4.056 | D_A 0.198 D_B 0.192 | cyc 0.979/1.141 | idt 0.490/0.539 | |g| G 23.63 D 10.81 | lr 1.80e-04 | NaN 0
+[2026-10-02 03:42:04] EPOCH 56/100 (2.5 min): G 3.982 | D_A 0.196 D_B 0.193 | cyc 0.963/1.122 | idt 0.478/0.537 | |g| G 23.26 D 10.56 | lr 1.76e-04 | NaN 0
+[2026-10-02 03:44:40] EPOCH 57/100 (2.6 min): G 3.986 | D_A 0.196 D_B 0.193 | cyc 0.939/1.130 | idt 0.475/0.539 | |g| G 22.91 D 10.54 | lr 1.73e-04 | NaN 0
+[2026-10-02 03:47:23] EPOCH 58/100 (2.7 min): G 3.884 | D_A 0.198 D_B 0.192 | cyc 0.919/1.082 | idt 0.466/0.519 | |g| G 22.24 D 10.47 | lr 1.69e-04 | NaN 0
+[2026-10-02 03:50:01] EPOCH 59/100 (2.6 min): G 3.932 | D_A 0.193 D_B 0.192 | cyc 0.922/1.098 | idt 0.463/0.530 | |g| G 22.84 D 10.47 | lr 1.65e-04 | NaN 0
+[2026-10-02 03:52:45] EPOCH 60/100 (2.7 min): G 3.934 | D_A 0.190 D_B 0.190 | cyc 0.933/1.095 | idt 0.468/0.519 | |g| G 23.09 D 10.20 | lr 1.61e-04 | NaN 0
+[2026-10-02 03:55:25] EPOCH 61/100 (2.6 min): G 3.868 | D_A 0.193 D_B 0.193 | cyc 0.901/1.091 | idt 0.459/0.520 | |g| G 22.62 D 10.23 | lr 1.57e-04 | NaN 0
+[2026-10-02 03:58:09] EPOCH 62/100 (2.7 min): G 4.057 | D_A 0.191 D_B 0.178 | cyc 0.942/1.144 | idt 0.454/0.551 | |g| G 25.47 D 10.29 | lr 1.53e-04 | NaN 0
+[2026-10-02 04:00:55] EPOCH 63/100 (2.7 min): G 4.117 | D_A 0.189 D_B 0.156 | cyc 0.926/1.121 | idt 0.452/0.561 | |g| G 25.99 D 10.38 | lr 1.49e-04 | NaN 0
+[2026-10-02 04:03:38] EPOCH 64/100 (2.7 min): G 3.923 | D_A 0.188 D_B 0.170 | cyc 0.897/1.084 | idt 0.448/0.531 | |g| G 23.61 D 10.33 | lr 1.45e-04 | NaN 0
+[2026-10-02 04:06:18] EPOCH 65/100 (2.6 min): G 3.784 | D_A 0.189 D_B 0.189 | cyc 0.865/1.047 | idt 0.436/0.508 | |g| G 21.56 D 10.25 | lr 1.41e-04 | NaN 0
+[2026-10-02 04:08:58] EPOCH 66/100 (2.6 min): G 3.779 | D_A 0.172 D_B 0.192 | cyc 0.868/1.030 | idt 0.436/0.504 | |g| G 21.94 D 10.17 | lr 1.37e-04 | NaN 0
+[2026-10-02 04:11:40] EPOCH 67/100 (2.7 min): G 3.803 | D_A 0.172 D_B 0.188 | cyc 0.862/1.053 | idt 0.441/0.509 | |g| G 22.78 D 10.36 | lr 1.33e-04 | NaN 0
+[2026-10-02 04:14:21] EPOCH 68/100 (2.6 min): G 3.810 | D_A 0.176 D_B 0.188 | cyc 0.859/1.053 | idt 0.438/0.510 | |g| G 23.24 D 10.31 | lr 1.29e-04 | NaN 0
+[2026-10-02 04:17:02] EPOCH 69/100 (2.6 min): G 3.817 | D_A 0.178 D_B 0.188 | cyc 0.842/1.080 | idt 0.427/0.519 | |g| G 23.52 D 10.74 | lr 1.25e-04 | NaN 0
+[2026-10-02 04:19:43] EPOCH 70/100 (2.6 min): G 3.700 | D_A 0.173 D_B 0.188 | cyc 0.826/1.020 | idt 0.420/0.490 | |g| G 22.82 D 10.53 | lr 1.22e-04 | NaN 0
+[2026-10-02 04:22:24] EPOCH 71/100 (2.6 min): G 3.688 | D_A 0.170 D_B 0.184 | cyc 0.813/1.014 | idt 0.412/0.490 | |g| G 23.29 D 10.54 | lr 1.18e-04 | NaN 0
+[2026-10-02 04:25:10] EPOCH 72/100 (2.7 min): G 3.693 | D_A 0.164 D_B 0.186 | cyc 0.820/1.030 | idt 0.410/0.497 | |g| G 23.37 D 10.26 | lr 1.14e-04 | NaN 0
+[2026-10-02 04:27:49] EPOCH 73/100 (2.6 min): G 3.649 | D_A 0.167 D_B 0.187 | cyc 0.804/0.995 | idt 0.410/0.482 | |g| G 22.22 D 10.38 | lr 1.10e-04 | NaN 0
+[2026-10-02 04:30:28] EPOCH 74/100 (2.6 min): G 3.617 | D_A 0.164 D_B 0.183 | cyc 0.798/0.974 | idt 0.404/0.471 | |g| G 22.99 D 10.53 | lr 1.06e-04 | NaN 0
+[2026-10-02 04:33:12] EPOCH 75/100 (2.7 min): G 3.592 | D_A 0.170 D_B 0.180 | cyc 0.790/0.964 | idt 0.402/0.473 | |g| G 22.66 D 10.73 | lr 1.02e-04 | NaN 0
+[2026-10-02 04:35:50] EPOCH 76/100 (2.6 min): G 3.565 | D_A 0.173 D_B 0.184 | cyc 0.774/0.966 | idt 0.395/0.472 | |g| G 23.21 D 10.46 | lr 9.80e-05 | NaN 0
+[2026-10-02 04:38:21] EPOCH 77/100 (2.5 min): G 3.563 | D_A 0.182 D_B 0.184 | cyc 0.764/0.997 | idt 0.392/0.478 | |g| G 22.74 D 10.34 | lr 9.41e-05 | NaN 0
+[2026-10-02 04:40:59] EPOCH 78/100 (2.6 min): G 3.568 | D_A 0.174 D_B 0.177 | cyc 0.775/0.975 | idt 0.397/0.479 | |g| G 23.14 D 10.59 | lr 9.02e-05 | NaN 0
+[2026-10-02 04:43:41] EPOCH 79/100 (2.6 min): G 3.505 | D_A 0.180 D_B 0.181 | cyc 0.755/0.973 | idt 0.389/0.472 | |g| G 22.75 D 10.64 | lr 8.63e-05 | NaN 0
+[2026-10-02 04:46:21] EPOCH 80/100 (2.6 min): G 3.495 | D_A 0.175 D_B 0.176 | cyc 0.752/0.948 | idt 0.378/0.468 | |g| G 22.73 D 10.48 | lr 8.24e-05 | NaN 0
+[2026-10-02 04:49:02] EPOCH 81/100 (2.6 min): G 3.490 | D_A 0.173 D_B 0.177 | cyc 0.743/0.953 | idt 0.377/0.470 | |g| G 22.78 D 10.58 | lr 7.84e-05 | NaN 0
+[2026-10-02 04:51:55] EPOCH 82/100 (2.8 min): G 3.365 | D_A 0.186 D_B 0.183 | cyc 0.729/0.922 | idt 0.374/0.451 | |g| G 22.59 D 10.69 | lr 7.45e-05 | NaN 0
+[2026-10-02 04:54:37] EPOCH 83/100 (2.7 min): G 3.414 | D_A 0.177 D_B 0.176 | cyc 0.737/0.921 | idt 0.372/0.459 | |g| G 22.62 D 10.61 | lr 7.06e-05 | NaN 0
+[2026-10-02 04:57:18] EPOCH 84/100 (2.6 min): G 3.362 | D_A 0.179 D_B 0.179 | cyc 0.729/0.904 | idt 0.365/0.445 | |g| G 22.56 D 10.83 | lr 6.67e-05 | NaN 0
+[2026-10-02 05:00:01] EPOCH 85/100 (2.6 min): G 3.407 | D_A 0.180 D_B 0.170 | cyc 0.727/0.926 | idt 0.364/0.457 | |g| G 22.89 D 11.07 | lr 6.27e-05 | NaN 0
+[2026-10-02 05:02:42] EPOCH 86/100 (2.6 min): G 3.370 | D_A 0.181 D_B 0.176 | cyc 0.716/0.903 | idt 0.361/0.451 | |g| G 23.00 D 11.07 | lr 5.88e-05 | NaN 0
+[2026-10-02 05:05:25] EPOCH 87/100 (2.7 min): G 3.355 | D_A 0.174 D_B 0.171 | cyc 0.702/0.904 | idt 0.356/0.445 | |g| G 23.32 D 11.09 | lr 5.49e-05 | NaN 0
+[2026-10-02 05:07:55] EPOCH 88/100 (2.5 min): G 3.313 | D_A 0.175 D_B 0.173 | cyc 0.708/0.891 | idt 0.353/0.442 | |g| G 23.24 D 11.33 | lr 5.10e-05 | NaN 0
+[2026-10-02 05:10:58] EPOCH 89/100 (3.0 min): G 3.358 | D_A 0.183 D_B 0.172 | cyc 0.705/0.908 | idt 0.353/0.454 | |g| G 24.13 D 11.56 | lr 4.71e-05 | NaN 0
+[2026-10-02 05:12:34] EPOCH 90/100 (1.5 min): G 3.302 | D_A 0.178 D_B 0.171 | cyc 0.691/0.870 | idt 0.345/0.439 | |g| G 23.60 D 11.48 | lr 4.31e-05 | NaN 0
+[2026-10-02 05:13:55] EPOCH 91/100 (1.3 min): G 3.272 | D_A 0.175 D_B 0.169 | cyc 0.678/0.880 | idt 0.342/0.439 | |g| G 23.57 D 11.40 | lr 3.92e-05 | NaN 0
+[2026-10-02 05:15:15] EPOCH 92/100 (1.3 min): G 3.289 | D_A 0.173 D_B 0.165 | cyc 0.678/0.882 | idt 0.338/0.450 | |g| G 24.23 D 11.75 | lr 3.53e-05 | NaN 0
+[2026-10-02 05:16:38] EPOCH 93/100 (1.4 min): G 3.243 | D_A 0.169 D_B 0.161 | cyc 0.673/0.859 | idt 0.329/0.432 | |g| G 23.83 D 11.52 | lr 3.14e-05 | NaN 0
+[2026-10-02 05:17:58] EPOCH 94/100 (1.3 min): G 3.243 | D_A 0.168 D_B 0.163 | cyc 0.673/0.848 | idt 0.334/0.425 | |g| G 23.98 D 11.64 | lr 2.75e-05 | NaN 0
+[2026-10-02 05:19:17] EPOCH 95/100 (1.3 min): G 3.232 | D_A 0.167 D_B 0.166 | cyc 0.661/0.853 | idt 0.327/0.429 | |g| G 24.54 D 12.04 | lr 2.35e-05 | NaN 0
+[2026-10-02 05:20:38] EPOCH 96/100 (1.3 min): G 3.259 | D_A 0.164 D_B 0.161 | cyc 0.669/0.861 | idt 0.331/0.439 | |g| G 25.17 D 12.16 | lr 1.96e-05 | NaN 0
+[2026-10-02 05:21:58] EPOCH 97/100 (1.3 min): G 3.194 | D_A 0.169 D_B 0.161 | cyc 0.660/0.838 | idt 0.327/0.431 | |g| G 24.90 D 12.37 | lr 1.57e-05 | NaN 0
+[2026-10-02 05:23:18] EPOCH 98/100 (1.3 min): G 3.184 | D_A 0.164 D_B 0.158 | cyc 0.656/0.824 | idt 0.327/0.423 | |g| G 25.04 D 12.27 | lr 1.18e-05 | NaN 0
+[2026-10-02 05:24:38] EPOCH 99/100 (1.3 min): G 3.220 | D_A 0.166 D_B 0.165 | cyc 0.660/0.834 | idt 0.327/0.428 | |g| G 25.41 D 12.59 | lr 7.84e-06 | NaN 0
+[2026-10-02 05:25:58] EPOCH 100/100 (1.3 min): G 3.143 | D_A 0.163 D_B 0.166 | cyc 0.645/0.812 | idt 0.321/0.413 | |g| G 25.60 D 12.71 | lr 3.92e-06 | NaN 0
+[2026-10-02 05:26:00] training finished: 4.17 h | peak memory 1622 MB
+[2026-10-02 05:26:02] saved cyclegan_final.pt (56.6 MB), checkpoint ID 9fd12c2b6237
+[2026-10-02 05:26:07] evaluating on 300 Monet paintings (A) and 500 held-out photos (B, team split)
+[2026-10-02 05:26:30]                      metric direction                                                    value
+               n_translated       A2B                                                      300
+           n_real_reference       A2B                                                      500
+                        fid       A2B                                               106.058592
+                   kid_mean       A2B                                                 0.035624
+                    kid_std       A2B                                                   0.0034
+              gen_precision       A2B                                                 0.516667
+                 gen_recall       A2B                                                    0.516
+                gen_density       A2B                                                 0.415333
+               gen_coverage       A2B                                                    0.474
+                   cycle_l1       A2B                                                 0.076124
+ lpips_input_vs_translation       A2B                                                 0.271892
+             content_cosine       A2B                                                 0.808663
+    l1_input_vs_translation       A2B                                                 0.189382
+               n_translated       B2A                                                      500
+           n_real_reference       B2A                                                      300
+                        fid       B2A                                               108.184134
+                   kid_mean       B2A                                                 0.028397
+                    kid_std       B2A                                                 0.003124
+              gen_precision       B2A                                                    0.416
+                 gen_recall       B2A                                                 0.606667
+                gen_density       B2A                                                   0.2724
+               gen_coverage       B2A                                                     0.63
+                   cycle_l1       B2A                                                 0.098514
+ lpips_input_vs_translation       B2A                                                   0.3474
+             content_cosine       B2A                                                 0.779348
+    l1_input_vs_translation       B2A                                                 0.302381
+                params_G_AB      both                                                 11378179
+                params_G_BA      both                                                 11378179
+                 params_D_A      both                                                  2764737
+                 params_D_B      both                                                  2764737
+               params_total      both                                                 28285832
+   inference_images_per_sec      both                                               559.225352
+       final_epoch_G_adv_AB      both                                                 0.486597
+       final_epoch_G_adv_BA      both                                                 0.466198
+            final_epoch_D_A      both                                                 0.162727
+            final_epoch_D_B      both                                                 0.165758
+   final_epoch_cycle_loss_A      both                                                 0.644847
+   final_epoch_cycle_loss_B      both                                                 0.812335
+final_epoch_identity_loss_A      both                                                  0.32052
+final_epoch_identity_loss_B      both                                                 0.412501
+            gradnorm_G_mean      both                                                25.934413
+             gradnorm_G_max      both                                                79.220191
+            gradnorm_D_mean      both                                                13.227891
+             gradnorm_D_max      both                                                74.704127
+ gradnorm_G_nonfinite_steps      both                                                       41
+ gradnorm_D_nonfinite_steps      both                                                        3
+                  nan_count      both                                                        0
+         amp_overflow_skips      both                                                       42
+          training_time_min      both                                               249.938216
+                train_steps      both                                                   100000
+                     epochs      both                                                      100
+  train_image_pairs_per_sec      both                                                 6.668315
+             peak_memory_mb      both                                              1621.928223
+                   hardware      both NVIDIA GeForce RTX 5090 / Intel(R) Core(TM) Ultra 9 285K
+[2026-10-02 05:26:30] A2B: cycle L1 0.0761 vs input-translation L1 0.1894 -> cycle constraint VERIFIED
+[2026-10-02 05:26:30] B2A: cycle L1 0.0985 vs input-translation L1 0.3024 -> cycle constraint VERIFIED
+[2026-10-02 05:26:30] running the official evaluation script (unchanged) ...
+[2026-10-02 05:26:47] official submission.csv: [{'ID': 1, 'FID': 108.99209502942269, 'MiFID': 0.4188115166031037}]  -> /app/data266-lab1/task3_gan/ruchika_chaurasia/runs/long100_diffaug/submission.csv
+[2026-10-02 05:26:47] wrote results.md and manifest: reproducibility/manifests/task3_gan_ruchika_chaurasia_long100_diffaug_20261002_052647.json

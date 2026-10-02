@@ -1,0 +1,62 @@
+# Task 1 · Lineup A · owner: ruchika_chaurasia
+member: ruchika_chaurasia
+lineup: A
+sid4: 8283            # personal parameters are derived from this (standing requirement 0.1)
+seed: 8283            # = SEED
+
+data:
+  hf_name: roneneldan/TinyStories
+  split_source: train
+  local_text_file: null     # optional fallback, path relative to repo root (TinyStories .txt)
+  n_train_stories: 100000
+  n_val_stories: 10000
+  min_char_freq: 5          # rarer characters -> <unk>
+
+model:                      # ~3.2M parameters
+  n_layer: 4
+  n_head: 4                 # head dim 64
+  d_model: 256
+  block_size: 256           # context length in characters
+  dropout: 0.1
+  ffn_mult: 4
+  tie_weights: true         # LM head shares the token-embedding matrix
+
+train:
+  epochs: 10
+  batch_size: 128           # 128 x 256 = 32,768 characters per step
+  lr: 1.0e-3
+  min_lr: 1.0e-4
+  warmup_steps: 500
+  schedule: cosine
+  weight_decay: 0.1
+  betas: [0.9, 0.95]
+  grad_clip: 1.0
+  amp: true                 # fp16 mixed precision on the T4
+  eval_max_seqs: 4000       # windows used for the per-epoch train/val check (final eval uses the full val set)
+  spike_factor: 1.5
+  resume: true
+
+generation:
+  prompts:
+    - "Once upon a time"
+    - "Tom and Lily went to the park"
+    - "The little dog was sad because"
+    - "One day, a girl named Mia found a"
+    - "The big red ball"
+  temperatures: [0.0, 0.7, 1.0]   # 0.0 = greedy
+  headline_temperature: 0.7
+  samples_per_prompt: 2
+  max_new_chars: 400
+  top_k: null
+
+rationale: |
+  * Small and wide-context: 4 layers x 256 dims (~3.2M params) is enough capacity for TinyStories'
+    ~1.5K-word vocabulary (Eldan & Li, 2023 show very small models already produce fluent stories), and
+    it trains 10 full epochs on a single T4 in roughly an hour.
+  * Context of 256 characters (~50 words) lets attention see about two sentences, which is what a
+    character model needs to keep names and subjects consistent.
+  * Weight tying reduces parameters and ties the input and output character representations together,
+    which usually lowers validation loss for small vocabularies.
+  * lr 1e-3 with 500 warm-up steps and cosine decay: small models tolerate a high peak LR; warm-up
+    avoids early Adam instability, and cosine decay gives a low final LR for a good last checkpoint.
+  * Dropout 0.1 because 100K stories x 10 epochs is enough data that heavy regularisation is not needed.

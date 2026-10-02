@@ -1,0 +1,85 @@
+[2026-10-01 23:50:55] raw log started: reproducibility/raw_logs/task1_llm_ruchika_chaurasia_20261001_235055.log
+[2026-10-01 23:50:55] member: ruchika_chaurasia | lineup: A | seed: 8283 | smoke: False
+[2026-10-01 23:50:55] hardware: {"cpu": "Intel(R) Core(TM) Ultra 9 285K", "cpu_count": 24, "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31", "python": "3.10.13", "torch": "2.11.0+cu128", "cuda_available": true, "gpu": "NVIDIA GeForce RTX 5090", "gpu_memory_gb": 31.84, "cuda": "12.8", "cudnn": 91900}
+[2026-10-01 23:50:55] config: {"member": "ruchika_chaurasia", "lineup": "A", "sid4": 8283, "seed": 8283, "data": {"hf_name": "roneneldan/TinyStories", "split_source": "train", "local_text_file": null, "n_train_stories": 100000, "n_val_stories": 10000, "min_char_freq": 5}, "model": {"n_layer": 4, "n_head": 4, "d_model": 256, "block_size": 256, "dropout": 0.1, "ffn_mult": 4, "tie_weights": true}, "train": {"epochs": 10, "batch_size": 128, "lr": 0.001, "min_lr": 0.0001, "warmup_steps": 500, "schedule": "cosine", "weight_decay": 0.1, "betas": [0.9, 0.95], "grad_clip": 1.0, "amp": true, "eval_max_seqs": 4000, "spike_factor": 1.5, "resume": true}, "generation": {"prompts": ["Once upon a time", "Tom and Lily went to the park", "The little dog was sad because", "One day, a girl named Mia found a", "The big red ball"], "temperatures": [0.0, 0.7, 1.0], "headline_temperature": 0.7, "samples_per_prompt": 2, "max_new_chars": 400, "top_k": null}, "rationale": "* Small and wide-context: 4 layers x 256 dims (~3.2M params) is enough capacity for TinyStories'\n  ~1.5K-word vocabulary (Eldan & Li, 2023 show very small models already produce fluent stories), and\n  it trains 10 full epochs on a single T4 in roughly an hour.\n* Context of 256 characters (~50 words) lets attention see about two sentences, which is what a\n  character model needs to keep names and subjects consistent.\n* Weight tying reduces parameters and ties the input and output character representations together,\n  which usually lowers validation loss for small vocabularies.\n* lr 1e-3 with 500 warm-up steps and cosine decay: small models tolerate a high peak LR; warm-up\n  avoids early Adam instability, and cosine decay gives a low final LR for a good last checkpoint.\n* Dropout 0.1 because 100K stories x 10 epochs is enough data that heavy regularisation is not needed.\n"}
+[2026-10-01 23:51:26] loaded 100,000 train / 10,000 val stories in 28.4s
+[2026-10-01 23:51:28] vocab size = 94 (incl. <unk>, <eos>) | rare chars mapped to <unk>: 28 occurrences
+[2026-10-01 23:51:28] train chars = 89,761,426 | val chars = 8,890,874 | val <unk> rate = 6.75e-07
+[2026-10-01 23:51:28] story length: mean 897, median 788, max 4349
+[2026-10-01 23:51:30] parameters: 3,249,152 total (3,183,616 excluding embeddings)
+[2026-10-01 23:51:30] causal-mask test: earlier positions unchanged = True, last position changed = True
+[2026-10-01 23:51:31] steps/epoch = 2,739 | total steps = 27,390 | tokens/step = 32,768 | AMP = True
+[2026-10-01 23:51:32]   ep 1 step       0/27390 loss 4.5425 gnorm 8.938 lr 2.00e-06
+[2026-10-01 23:51:44]   ep 1 step     547/27390 loss 1.3752 gnorm 0.795 lr 1.00e-03
+[2026-10-01 23:51:57]   ep 1 step    1094/27390 loss 1.0007 gnorm 0.423 lr 9.99e-04
+[2026-10-01 23:52:11]   ep 1 step    1641/27390 loss 0.8773 gnorm 0.316 lr 9.96e-04
+[2026-10-01 23:52:24]   ep 1 step    2188/27390 loss 0.8243 gnorm 0.305 lr 9.91e-04
+[2026-10-01 23:52:37]   ep 1 step    2735/27390 loss 0.8244 gnorm 0.262 lr 9.85e-04
+[2026-10-01 23:52:37] EPOCH 1/10: train 0.7554 | val 0.7602 (ppl 2.139, acc 0.760) | gnorm mean 0.535 | 1.1 min
+[2026-10-01 23:52:37]   new best val loss -> saved best.pt
+[2026-10-01 23:52:51]   ep 2 step    3282/27390 loss 0.7838 gnorm 0.243 lr 9.76e-04
+[2026-10-01 23:53:04]   ep 2 step    3829/27390 loss 0.7652 gnorm 0.215 lr 9.66e-04
+[2026-10-01 23:53:17]   ep 2 step    4376/27390 loss 0.7660 gnorm 0.211 lr 9.55e-04
+[2026-10-01 23:53:30]   ep 2 step    4923/27390 loss 0.7699 gnorm 0.202 lr 9.41e-04
+[2026-10-01 23:53:43]   ep 2 step    5470/27390 loss 0.7383 gnorm 0.192 lr 9.26e-04
+[2026-10-01 23:53:44] EPOCH 2/10: train 0.6984 | val 0.7046 (ppl 2.023, acc 0.777) | gnorm mean 0.217 | 1.1 min
+[2026-10-01 23:53:44]   new best val loss -> saved best.pt
+[2026-10-01 23:53:57]   ep 3 step    6017/27390 loss 0.7434 gnorm 0.205 lr 9.10e-04
+[2026-10-01 23:54:10]   ep 3 step    6564/27390 loss 0.7385 gnorm 0.191 lr 8.92e-04
+[2026-10-01 23:54:23]   ep 3 step    7111/27390 loss 0.7317 gnorm 0.180 lr 8.72e-04
+[2026-10-01 23:54:36]   ep 3 step    7658/27390 loss 0.7178 gnorm 0.182 lr 8.52e-04
+[2026-10-01 23:54:49]   ep 3 step    8205/27390 loss 0.7395 gnorm 0.181 lr 8.30e-04
+[2026-10-01 23:54:50] EPOCH 3/10: train 0.6730 | val 0.6799 (ppl 1.974, acc 0.785) | gnorm mean 0.186 | 1.1 min
+[2026-10-01 23:54:50]   new best val loss -> saved best.pt
+[2026-10-01 23:55:03]   ep 4 step    8752/27390 loss 0.7159 gnorm 0.184 lr 8.07e-04
+[2026-10-01 23:55:16]   ep 4 step    9299/27390 loss 0.6851 gnorm 0.169 lr 7.82e-04
+[2026-10-01 23:55:30]   ep 4 step    9846/27390 loss 0.7028 gnorm 0.180 lr 7.57e-04
+[2026-10-01 23:55:43]   ep 4 step   10393/27390 loss 0.7139 gnorm 0.171 lr 7.31e-04
+[2026-10-01 23:55:56]   ep 4 step   10940/27390 loss 0.7058 gnorm 0.173 lr 7.05e-04
+[2026-10-01 23:55:57] EPOCH 4/10: train 0.6564 | val 0.6646 (ppl 1.944, acc 0.790) | gnorm mean 0.176 | 1.1 min
+[2026-10-01 23:55:57]   new best val loss -> saved best.pt
+[2026-10-01 23:56:10]   ep 5 step   11487/27390 loss 0.7182 gnorm 0.170 lr 6.77e-04
+[2026-10-01 23:56:24]   ep 5 step   12034/27390 loss 0.6933 gnorm 0.176 lr 6.50e-04
+[2026-10-01 23:56:37]   ep 5 step   12581/27390 loss 0.7074 gnorm 0.172 lr 6.21e-04
+[2026-10-01 23:56:50]   ep 5 step   13128/27390 loss 0.6826 gnorm 0.173 lr 5.93e-04
+[2026-10-01 23:57:03]   ep 5 step   13675/27390 loss 0.6907 gnorm 0.176 lr 5.64e-04
+[2026-10-01 23:57:04] EPOCH 5/10: train 0.6424 | val 0.6505 (ppl 1.916, acc 0.793) | gnorm mean 0.176 | 1.1 min
+[2026-10-01 23:57:04]   new best val loss -> saved best.pt
+[2026-10-01 23:57:17]   ep 6 step   14222/27390 loss 0.6715 gnorm 0.170 lr 5.35e-04
+[2026-10-01 23:57:30]   ep 6 step   14769/27390 loss 0.6794 gnorm 0.178 lr 5.07e-04
+[2026-10-01 23:57:43]   ep 6 step   15316/27390 loss 0.6786 gnorm 0.178 lr 4.78e-04
+[2026-10-01 23:57:56]   ep 6 step   15863/27390 loss 0.6754 gnorm 0.175 lr 4.50e-04
+[2026-10-01 23:58:08]   ep 6 step   16410/27390 loss 0.6875 gnorm 0.184 lr 4.22e-04
+[2026-10-01 23:58:09] EPOCH 6/10: train 0.6307 | val 0.6391 (ppl 1.895, acc 0.797) | gnorm mean 0.180 | 1.1 min
+[2026-10-01 23:58:10]   new best val loss -> saved best.pt
+[2026-10-01 23:58:22]   ep 7 step   16957/27390 loss 0.6793 gnorm 0.188 lr 3.95e-04
+[2026-10-01 23:58:35]   ep 7 step   17504/27390 loss 0.6724 gnorm 0.187 lr 3.68e-04
+[2026-10-01 23:58:48]   ep 7 step   18051/27390 loss 0.6830 gnorm 0.189 lr 3.42e-04
+[2026-10-01 23:59:01]   ep 7 step   18598/27390 loss 0.6903 gnorm 0.192 lr 3.17e-04
+[2026-10-01 23:59:14]   ep 7 step   19145/27390 loss 0.6507 gnorm 0.186 lr 2.93e-04
+[2026-10-01 23:59:15] EPOCH 7/10: train 0.6212 | val 0.6301 (ppl 1.878, acc 0.800) | gnorm mean 0.187 | 1.1 min
+[2026-10-01 23:59:15]   new best val loss -> saved best.pt
+[2026-10-01 23:59:28]   ep 8 step   19692/27390 loss 0.6490 gnorm 0.189 lr 2.70e-04
+[2026-10-01 23:59:41]   ep 8 step   20239/27390 loss 0.6659 gnorm 0.199 lr 2.48e-04
+[2026-10-01 23:59:54]   ep 8 step   20786/27390 loss 0.6493 gnorm 0.193 lr 2.27e-04
+[2026-10-02 00:00:07]   ep 8 step   21333/27390 loss 0.6552 gnorm 0.194 lr 2.08e-04
+[2026-10-02 00:00:20]   ep 8 step   21880/27390 loss 0.6477 gnorm 0.196 lr 1.90e-04
+[2026-10-02 00:00:22] EPOCH 8/10: train 0.6114 | val 0.6212 (ppl 1.861, acc 0.802) | gnorm mean 0.195 | 1.1 min
+[2026-10-02 00:00:22]   new best val loss -> saved best.pt
+[2026-10-02 00:00:34]   ep 9 step   22427/27390 loss 0.6501 gnorm 0.195 lr 1.74e-04
+[2026-10-02 00:00:48]   ep 9 step   22974/27390 loss 0.6565 gnorm 0.200 lr 1.59e-04
+[2026-10-02 00:01:01]   ep 9 step   23521/27390 loss 0.6569 gnorm 0.200 lr 1.45e-04
+[2026-10-02 00:01:14]   ep 9 step   24068/27390 loss 0.6574 gnorm 0.213 lr 1.33e-04
+[2026-10-02 00:01:27]   ep 9 step   24615/27390 loss 0.6385 gnorm 0.204 lr 1.23e-04
+[2026-10-02 00:01:28] EPOCH 9/10: train 0.6064 | val 0.6163 (ppl 1.852, acc 0.804) | gnorm mean 0.204 | 1.1 min
+[2026-10-02 00:01:29]   new best val loss -> saved best.pt
+[2026-10-02 00:01:41]   ep 10 step   25162/27390 loss 0.6505 gnorm 0.205 lr 1.15e-04
+[2026-10-02 00:01:54]   ep 10 step   25709/27390 loss 0.6587 gnorm 0.215 lr 1.09e-04
+[2026-10-02 00:02:08]   ep 10 step   26256/27390 loss 0.6628 gnorm 0.218 lr 1.04e-04
+[2026-10-02 00:02:21]   ep 10 step   26803/27390 loss 0.6559 gnorm 0.215 lr 1.01e-04
+[2026-10-02 00:02:34]   ep 10 step   27350/27390 loss 0.6542 gnorm 0.215 lr 1.00e-04
+[2026-10-02 00:02:36] EPOCH 10/10: train 0.6036 | val 0.6131 (ppl 1.846, acc 0.805) | gnorm mean 0.212 | 1.1 min
+[2026-10-02 00:02:36]   new best val loss -> saved best.pt
+[2026-10-02 00:02:36] training done: 11.0 min, peak memory 3055 MB
+[2026-10-02 00:02:40] FINAL (best epoch 10): train 0.6077 | val 0.6150 | ppl 1.850 | bpc 0.887 | acc 0.8042
+[2026-10-02 00:03:00] wrote results.md, metrics_report.csv, manifest: reproducibility/manifests/task1_llm_ruchika_chaurasia_20261002_000259.json

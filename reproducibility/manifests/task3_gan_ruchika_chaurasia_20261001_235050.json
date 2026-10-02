@@ -1,0 +1,88 @@
+{
+  "task": "task3_gan",
+  "member": "ruchika_chaurasia",
+  "created": "20261001_235050",
+  "smoke_run": false,
+  "git_commit": "unknown (not a git checkout)",
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) Ultra 9 285K",
+    "cpu_count": 24,
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.13",
+    "torch": "2.11.0+cu128",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 5090",
+    "gpu_memory_gb": 31.84,
+    "cuda": "12.8",
+    "cudnn": 91900
+  },
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "numpy": "1.26.2",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.9",
+    "datasets": "5.0.1",
+    "nltk": "3.10.3",
+    "torchmetrics": "1.9.0",
+    "torch-fidelity": "0.4.0",
+    "pyyaml": "6.0.1"
+  },
+  "config": {
+    "member": "ruchika_chaurasia",
+    "lineup": "A",
+    "sid4": 8283,
+    "seed": 8283,
+    "data": {
+      "photo_dir": "task3_gan/data/photo_jpg",
+      "monet_dir": "task3_gan/data/monet_jpg",
+      "image_size": 256,
+      "load_size": 286,
+      "max_train_photos": null
+    },
+    "model": {
+      "generator": "resnet",
+      "ngf": 64,
+      "n_res_blocks": 9,
+      "ndf": 64,
+      "d_layers": 3
+    },
+    "train": {
+      "gan_loss": "lsgan",
+      "lambda_cycle": 10.0,
+      "lambda_identity": 0.5,
+      "lr": 0.0002,
+      "beta1": 0.5,
+      "batch_size": 1,
+      "epochs": 30,
+      "decay_start_epoch": 15,
+      "steps_per_epoch": 1000,
+      "pool_size": 50,
+      "grad_clip": null,
+      "amp": true,
+      "log_every": 50,
+      "sample_every_epochs": 1,
+      "resume": true
+    },
+    "kaggle": {
+      "public_score": null,
+      "private_score": null,
+      "rank": null
+    },
+    "rationale": "* Faithful reproduction of the CycleGAN paper's 256x256 setup (ResNet-9 generator, 70x70 PatchGAN,\n  LSGAN loss, lambda_cyc = 10, identity 0.5, Adam 2e-4 / beta1 0.5, image pool 50). This is the reference\n  configuration, so any teammate's deviation can be judged against it.\n* ResNet generator: the residual blocks start close to the identity function, which suits style\n  transfer. The photo's layout should survive; only texture and colour change.\n* LSGAN (least squares) gives non-saturating gradients and was more stable than BCE in the paper.\n* Identity loss 0.5: Monet<->photo translation otherwise tends to shift overall colour (e.g. turning\n  daytime photos into sunsets), which hurts content preservation.\n* 30 x 1000 unpaired steps fits in a few T4 hours with AMP. Half constant then linear decay follows the\n  paper's 100 + 100 schedule, compressed.\n"
+  },
+  "checkpoints": {
+    "cyclegan_final": {
+      "path": "task3_gan/ruchika_chaurasia/checkpoints/cyclegan_final.pt",
+      "checkpoint_id": "aec6800f8b2e",
+      "size_mb": 53.99
+    }
+  },
+  "results_files": [
+    "task3_gan/ruchika_chaurasia/full_metrics_report.csv",
+    "task3_gan/ruchika_chaurasia/results.md"
+  ],
+  "raw_log": "reproducibility/raw_logs/task3_gan_ruchika_chaurasia_20261001_231058.log"
+}

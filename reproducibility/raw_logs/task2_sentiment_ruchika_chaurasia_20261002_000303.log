@@ -1,0 +1,30 @@
+[2026-10-02 00:03:03] raw log started: reproducibility/raw_logs/task2_sentiment_ruchika_chaurasia_20261002_000303.log
+[2026-10-02 00:03:03] member: ruchika_chaurasia | lineup: A | seed: 8283 | smoke: False
+[2026-10-02 00:03:03] hardware: GPU: NVIDIA GeForce RTX 5090 | CPU: Intel(R) Core(TM) Ultra 9 285K (24 cores)
+[2026-10-02 00:03:03] config: {"member": "ruchika_chaurasia", "lineup": "A", "sid4": 8283, "seed": 8283, "data": {"hf_name": "fancyzhx/yelp_polarity", "local_csv_dir": null, "train_size": 200000, "val_size": 20000, "test_size": null}, "preprocess": {"lowercase": true, "remove_stopwords": true, "keep_negations": true, "normalizer": "lemmatize", "max_vocab": 40000, "min_freq": 3, "max_len": 256, "truncation": "head_tail"}, "review_model": null, "models": [{"name": "A_baseline_embbag", "role": "baseline", "type": "embbag", "emb_dim": 100, "ngram": 1, "hidden": 0, "dropout": 0.2, "lr": 0.005, "weight_decay": 0.0, "batch_size": 512, "epochs": 5, "patience": 2, "why": "Bag of learned word embeddings (fastText-style, unigrams only). It is the simplest model that still learns embeddings, it trains in about a minute, and it sets a lower bound. Anything more complex must beat it, otherwise the added word-order modelling is not paying for itself."}, {"name": "A_exp1_textcnn", "role": "experimental", "type": "textcnn", "emb_dim": 128, "kernels": [3, 4, 5], "filters": 128, "dropout": 0.5, "lr": 0.001, "weight_decay": 0.0001, "batch_size": 256, "epochs": 4, "patience": 2, "why": "Changes the ARCHITECTURE: convolutions of width 3/4/5 learn local phrase detectors ('not worth it', 'will be back'), which the bag model cannot represent. Max-over-time pooling makes a phrase count wherever it appears. Dropout 0.5 follows Kim (2014)."}, {"name": "A_exp2_bilstm_attn", "role": "experimental", "type": "bilstm_attn", "emb_dim": 128, "hidden": 128, "layers": 1, "dropout": 0.3, "lr": 0.001, "weight_decay": 0.0001, "batch_size": 256, "epochs": 4, "patience": 2, "why": "Changes the ARCHITECTURE again: a bidirectional LSTM reads the whole review in order, so it can carry negation and contrast ('good food but awful service') across long spans. Attention pooling learns which positions matter, and its weights are inspectable during error review."}]}
+[2026-10-02 00:03:16] raw train 560,000 | raw test 38,000 | loaded in 12s
+[2026-10-02 00:03:25] cleaning: removed 49 duplicate train rows and 10 train rows that also appear in test; train now 559,941
+[2026-10-02 00:03:34] length percentiles (words) 50/90/95/99: [98.0, 284.0, 375.0, 613.0] | classes are balanced (ratio 1.000) so accuracy is meaningful; macro-F1 and MCC are still reported
+[2026-10-02 00:03:34] subset: train 200,000 | val 20,000 | test 38,000 (seed 8283)
+[2026-10-02 00:03:43] preprocessing done in 5s
+[2026-10-02 00:03:46] vocab size 39,449 | tokens/review after preprocessing: median 52, 95th pct 196 | truncated at 256: 2.2% of train reviews | test OOV rate 0.65%
+[2026-10-02 00:03:46] --- training A_baseline_embbag (embbag): 3,945,001 params | GPU: NVIDIA GeForce RTX 5090 | CPU: Intel(R) Core(TM) Ultra 9 285K (24 cores)
+[2026-10-02 00:03:48]   A_baseline_embbag epoch 1/5: train loss 0.3380 | val loss 0.2085 | val macro-F1 0.9221
+[2026-10-02 00:03:49]   A_baseline_embbag epoch 2/5: train loss 0.1905 | val loss 0.2020 | val macro-F1 0.9254
+[2026-10-02 00:03:50]   A_baseline_embbag epoch 3/5: train loss 0.1732 | val loss 0.2027 | val macro-F1 0.9244
+[2026-10-02 00:03:51]   A_baseline_embbag epoch 4/5: train loss 0.1637 | val loss 0.2038 | val macro-F1 0.9245
+[2026-10-02 00:03:51]   early stop after epoch 4
+[2026-10-02 00:03:51]   done: best val macro-F1 0.9254 | 0.1 min | peak 296 MB | ckpt 4cf09316ac72
+[2026-10-02 00:03:51] --- training A_exp1_textcnn (textcnn): 5,246,849 params | GPU: NVIDIA GeForce RTX 5090 | CPU: Intel(R) Core(TM) Ultra 9 285K (24 cores)
+[2026-10-02 00:03:55]   A_exp1_textcnn epoch 1/4: train loss 0.3523 | val loss 0.2090 | val macro-F1 0.9152
+[2026-10-02 00:03:58]   A_exp1_textcnn epoch 2/4: train loss 0.2091 | val loss 0.1798 | val macro-F1 0.9304
+[2026-10-02 00:04:02]   A_exp1_textcnn epoch 3/4: train loss 0.1731 | val loss 0.1724 | val macro-F1 0.9339
+[2026-10-02 00:04:05]   A_exp1_textcnn epoch 4/4: train loss 0.1575 | val loss 0.1719 | val macro-F1 0.9337
+[2026-10-02 00:04:06]   done: best val macro-F1 0.9339 | 0.2 min | peak 664 MB | ckpt 977844e053f5
+[2026-10-02 00:04:06] --- training A_exp2_bilstm_attn (bilstm_attn): 5,379,969 params | GPU: NVIDIA GeForce RTX 5090 | CPU: Intel(R) Core(TM) Ultra 9 285K (24 cores)
+[2026-10-02 00:04:42]   A_exp2_bilstm_attn epoch 1/4: train loss 0.2982 | val loss 0.1955 | val macro-F1 0.9276
+[2026-10-02 00:05:19]   A_exp2_bilstm_attn epoch 2/4: train loss 0.1708 | val loss 0.2110 | val macro-F1 0.9222
+[2026-10-02 00:05:57]   A_exp2_bilstm_attn epoch 3/4: train loss 0.1464 | val loss 0.1772 | val macro-F1 0.9381
+[2026-10-02 00:06:34]   A_exp2_bilstm_attn epoch 4/4: train loss 0.1340 | val loss 0.1823 | val macro-F1 0.9374
+[2026-10-02 00:06:35]   done: best val macro-F1 0.9381 | 2.4 min | peak 742 MB | ckpt ff1c3543fe50
+[2026-10-02 00:06:55] wrote metrics_report.csv, results.md, failure_analysis.md, manifest: reproducibility/manifests/task2_sentiment_ruchika_chaurasia_20261002_000655.json

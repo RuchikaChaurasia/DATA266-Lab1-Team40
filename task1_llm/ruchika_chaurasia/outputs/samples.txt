@@ -1,0 +1,157 @@
+### prompt='Once upon a time' temperature=0.0 rep=0 repeat4=0.151 nonword=0.000
+Once upon a time, there was a little girl named Lily. She loved to play outside in the sunshine and explore the world around her. One day, she found a big box in the garden. It was a big box with a big box of colorful colorful colors. 
+
+Lily was so happy to see the box and she put it in her pocket. She put it in her pocket and started to play with it. She put it in her pocket and started to play with it. She was 
+
+### prompt='Once upon a time' temperature=0.7 rep=0 repeat4=0.000 nonword=0.000
+Once upon a time, there was a popular creature named Rose. Rose lived in a big forest with lots of trees. One day, Rose was walking with her friends when she saw something amazing. It was a big, scary creature. Rose was scared, but she was not scared.
+
+Rose went to the creature and said, "Hello, I was an elephant!" But the creature was so stupid and couldn't stop. He said, "Don't worry, I can help. I will see wha
+
+### prompt='Once upon a time' temperature=0.7 rep=1 repeat4=0.025 nonword=0.012
+Once upon a time, there was a little boy named Timmy. Timmy loved to play outside with his friends. One day, Timmy's friend Billy came over to play. Billy saw Timmy's friend Billy playing with a toy car. Timmy was very cold and wanted to play with the car.
+
+Billy tried to play with the car, but it was too heavy. Timmy got scared and didn't know what to do. He went over to Billy and said hello to him. Billy was sa
+
+### prompt='Once upon a time' temperature=1.0 rep=0 repeat4=0.000 nonword=0.047
+Once upon a time there was a boy called Janna. One day Janna wanted to go for a walk in the forest all day. She walked to the forest and finally looked up at her sitch, where she could see a big tree. 
+
+The next day, Janna saw a beautiful flower and quickly put it in and out. She discovered it was so beautiful that she wanted to be big and ready to pretend. 
+
+At first she could see it cutter through her fingers a
+
+### prompt='Once upon a time' temperature=1.0 rep=1 repeat4=0.000 nonword=0.000
+Once upon a time, there was a little cat called Tom. Tom was very kind and generous. One day, Tom was an unusual singer and asked his parents why they couldn't release it. One day, Tom and his parents find a big orange spot. Tom said, "Tom! Don't worry, I will show you how to be lazy to bananas."
+
+Tom was happy because he was glad there was it was. He put it in his pocket and said, "Tom, you are not fierce. You c
+
+### prompt='Tom and Lily went to the park' temperature=0.0 rep=0 repeat4=0.198 nonword=0.000
+Tom and Lily went to the park with their mom. They saw a big tree with a branch on it. They wanted to pick it up.
+
+"Let's pick it up," Tom said. "It will be fun."
+
+"OK," Lily said. "But be careful. It is not a tree. It is a tree."
+
+They ran to the tree and picked it up. They saw a big tree with a branch on it. It was a big tree. It was a big tree. It was a big tree. It was a big tree.
+
+"Wow, look at that!" Lily said. "It is s
+
+### prompt='Tom and Lily went to the park' temperature=0.7 rep=0 repeat4=0.012 nonword=0.012
+Tom and Lily went to the park with their mom. They saw a big slide and a swing. They wanted to go on the slide, but they were too fast. They did not look closely anymore.
+
+"Let's go on the slide," Tom said. "Maybe they are hungry and fluffy."
+
+"OK," Lily said. "But be careful not to run on the slide. They are afraid of them."
+
+They got up and quickly started to pull the slide. They pushed the slide with their fingers and clim
+
+### prompt='Tom and Lily went to the park' temperature=0.7 rep=1 repeat4=0.011 nonword=0.000
+Tom and Lily went to the park to play. They saw a big slide and thought it looked fun to play with. They ran towards the slide and swing on the grass. They ran over to the slide and slid down.
+
+"Look, Lily, I found a big tree!" Tom said. "It is so much fun!"
+
+"Wow, Tom, that is amazing!" Lily said. "Let's burn it and see what it is!"
+
+They all ran to the tree and sat on the grass. They shared the blue tree and the branches. T
+
+### prompt='Tom and Lily went to the park' temperature=1.0 rep=0 repeat4=0.000 nonword=0.000
+Tom and Lily went to the park to play on the swings. They swung the slide and explore the water for dinner. When it was time to go home, they had a great time playing together. The end.
+
+### prompt='Tom and Lily went to the park' temperature=1.0 rep=1 repeat4=0.000 nonword=0.000
+Tom and Lily went to the park. They saw a big puddle. The puddle was so beautiful that they drank the funny water.
+
+They took off the puddle and went outside. They told the puddle where the water was. The zoom was happy and full. The family was happy that the funny wave was waiting for their dad to come home. They waved goodbye to the cow and went their underground.
+
+### prompt='The little dog was sad because' temperature=0.0 rep=0 repeat4=0.456 nonword=0.000
+The little dog was sad because he couldn't find his way back home. He was sad and started to cry.
+
+The little dog was sad and scared. He wished he had not been so brave and he could not find his way back home. He wished he had not been so brave and he was so sad. He wished he had not been so brave and strong. He wished he had not been so brave and strong. He wished he had not been so brave and strong. He wished he had not been
+
+### prompt='The little dog was sad because' temperature=0.7 rep=0 repeat4=0.051 nonword=0.012
+The little dog was sad because he thought that he didn't want to leave his own journey. The little squirrel said, "Don't worry, I will help you."
+
+The little dog was very sad and started to cry. His owner said, "Don't worry, I'll help you." 
+
+The little dog still hugged his owner, but then he said, "It's okay sometimes. I'm here to help." 
+
+The little dog was happy to help his owner and nodded her head. She said, "Yes, of cour
+
+### prompt='The little dog was sad because' temperature=0.7 rep=1 repeat4=0.000 nonword=0.000
+The little dog was sad because he couldn't get any free to eat. He wanted to show his friends his friends the cute sheep to him.
+
+One day, he heard his friends calling him. They were playing with a ball and he was having so much fun. He started to feel the wind blowing hard and it stopped blowing. Finally, they found a big string with an open string.
+
+The big string was so happy that he started to chase the string. He couldn't
+
+### prompt='The little dog was sad because' temperature=1.0 rep=0 repeat4=0.000 nonword=0.012
+The little dog was sad because he wanted his ball to make sure it was just enough. 
+
+One day, the little dog went to the park to play. He saw a big, foury bird that looked interesting and had lots of fun. The hunter asked the bird, "I want to do it too!" The bird was so surprised and said, "Look!" The little dog laughed and said, "Yes, it does!" The two little birds laughed and clapped and agreed. They kept moving together and
+
+### prompt='The little dog was sad because' temperature=1.0 rep=1 repeat4=0.000 nonword=0.011
+The little dog was sad because he still loved to play with his friends.
+
+One day, the little dog saw a big dog. It had a little fish in the water and barked loud. The dog also wanted to help them. So, the dog barked and barked at him. The dog ate Tim and the little fish ran after Max and fell.
+
+Tim and Max gave up and down to the dog. It wagged goodbye with each other and went back to playing with their anchor. It was very hap
+
+### prompt='One day, a girl named Mia found a' temperature=0.0 rep=0 repeat4=0.453 nonword=0.000
+One day, a girl named Mia found a big box in her room. She was so excited to open it. She put it in her pocket and started to play with it. She put it in her pocket and started to play with it.
+
+Mia was so happy to see the box and she put it in her pocket. She put it in her pocket and started to play with it. She put it in her pocket and started to play with it. She put it in her pocket and started to make it feel better.
+
+Mia wa
+
+### prompt='One day, a girl named Mia found a' temperature=0.7 rep=0 repeat4=0.000 nonword=0.000
+One day, a girl named Mia found a radish. She was so excited! She couldn't wait to take it home with her. She wanted to show it to her mom.
+
+Her mom said, "Lily, it's a radish. What is it?" Lily told her mom what happened. Her mom told her it was a perfect radish for her. Lily was so excited to give the radish for her to stay and watch it go fast.
+
+After that, Lily went to bed with her mom and sat down at the park. She was happy 
+
+### prompt='One day, a girl named Mia found a' temperature=0.7 rep=1 repeat4=0.000 nonword=0.000
+One day, a girl named Mia found a big tree with many branches. She picked it up and showed it to her mom. Her mom said, "That's branch! It's fun!" Mia was so excited and gave Mia a big hug. 
+
+Mia and her mom sat down in the chair and waited for the branches. Then they finished cleaning the tree and the chair was broken. Mia was very sad and cried a lot. 
+
+Mia hugged her mom and said, "It's okay, Mia. We can fix this tree." 
+
+Mia 
+
+### prompt='One day, a girl named Mia found a' temperature=1.0 rep=0 repeat4=0.000 nonword=0.000
+One day, a girl named Mia found a sad elephant. She did not want to leave the girl alone. Her mom saw Tim just screaming and smiling. Mia was scared, but she knew she had to find the girl.
+
+Mia hugged Tim and said, "I know, I know you cried. I crossed down the tree, I crossed the Tim. I see that it has my cage!" Mia smiled and said, "Yes, Lily. It's okay. You are being kind and successful. You are a good boy."
+
+### prompt='One day, a girl named Mia found a' temperature=1.0 rep=1 repeat4=0.012 nonword=0.011
+One day, a girl named Mia found a special creature on the ground and she picked it up. Mia was scared, but then she saw a little digger on the ground. She picked it up and started to open it.
+
+"Oh, Mia, how could I see it?" Mia asked.
+
+"Because I have so many toys for the creature?" Mia asked.
+
+"It's an amazing thing," Mia said. She picked up a ball and showed it to Mia instead.
+
+"Wow, he would you like to play with me?" Mia aske
+
+### prompt='The big red ball' temperature=0.0 rep=0 repeat4=0.457 nonword=0.000
+The big red ball was so happy to have a new friend. They played together all day long. The big red ball was so happy to have a new friend. They played together all day long. The end.
+
+### prompt='The big red ball' temperature=0.7 rep=0 repeat4=0.017 nonword=0.000
+The big red ball was the big red ball and it was so happy to have its ball. It wanted to play with its ball and tell its friends about its trouble friends. So, they took the ball to the pond and bounced it around. They felt proud of their special ball and was happy to have it back.
+
+The end.
+
+### prompt='The big red ball' temperature=0.7 rep=1 repeat4=0.068 nonword=0.000
+The big red ball was very scary and strong. The shrimp said, "Don't worry, I will help you. I will find you." The big red ball was very happy to help.
+
+The shrimp flew to the water and said, "I will help you find your way home. It will be fun and better." The shrimp was happy to have a new friend.
+
+### prompt='The big red ball' temperature=1.0 rep=0 repeat4=0.033 nonword=0.000
+The big red ball was very happy. From that day on, the big red ball became his friends. They ran on their ball with the ball and continued to play on the river.
+
+### prompt='The big red ball' temperature=1.0 rep=1 repeat4=0.000 nonword=0.000
+The big red ball got wet and made a big mess. Lily was sad and started to feel better. Her dad saw the ball getting outside and said, "Don't cry, Lily. It's just a snake. We will delay it." Lily smiled and hugged him.
+
+After that, Lily and her dad worked together. They had something else to do, mom took them to the snake to pick up an until it was outside. Lily was so excited that she couldn't listen to her dad w
+

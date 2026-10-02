@@ -1,0 +1,89 @@
+{
+  "task": "task3_gan",
+  "member": "ruchika_chaurasia_final200_noid",
+  "created": "20261002_125246",
+  "smoke_run": false,
+  "git_commit": "unknown (not a git checkout)",
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) Ultra 9 285K",
+    "cpu_count": 24,
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.13",
+    "torch": "2.11.0+cu128",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 5090",
+    "gpu_memory_gb": 31.84,
+    "cuda": "12.8",
+    "cudnn": 91900
+  },
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "numpy": "1.26.2",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.9",
+    "datasets": "5.0.1",
+    "nltk": "3.10.3",
+    "torchmetrics": "1.9.0",
+    "torch-fidelity": "0.4.0",
+    "pyyaml": "6.0.1"
+  },
+  "config": {
+    "member": "ruchika_chaurasia",
+    "lineup": "A",
+    "sid4": 8283,
+    "seed": 8283,
+    "data": {
+      "photo_dir": "task3_gan/data/photo_jpg",
+      "monet_dir": "task3_gan/data/monet_jpg",
+      "image_size": 256,
+      "load_size": 286,
+      "max_train_photos": null
+    },
+    "model": {
+      "generator": "resnet",
+      "ngf": 64,
+      "n_res_blocks": 9,
+      "ndf": 64,
+      "d_layers": 3
+    },
+    "train": {
+      "gan_loss": "lsgan",
+      "lambda_cycle": 10.0,
+      "lambda_identity": 0.0,
+      "lr": 0.0002,
+      "beta1": 0.5,
+      "batch_size": 1,
+      "epochs": 200,
+      "decay_start_epoch": 100,
+      "steps_per_epoch": 1000,
+      "pool_size": 50,
+      "grad_clip": null,
+      "amp": true,
+      "diffaugment": null,
+      "log_every": 50,
+      "sample_every_epochs": 1,
+      "resume": true
+    },
+    "kaggle": {
+      "public_score": null,
+      "private_score": null,
+      "rank": null
+    },
+    "rationale": "* long100 outputs are too conservative: photo->Monet precision 0.426 / density 0.296, low input-vs-translation\n  LPIPS, and DiffAugment (which made outputs even more conservative) scored worse.\n* The identity loss explicitly rewards leaving images unchanged, so this run removes it entirely (0.0); the parallel run 'final200' uses 0.1.\n* Full CycleGAN paper schedule (100 + 100 epochs) instead of 50 + 50.\n* Risk: without identity loss, colours can shift in Monet->photo (noted in the CycleGAN paper).\n* Selection between final200 / final200_noid / long100 is made on the held-out metrics (500 held-out photos),\n  not on Kaggle scores.\n"
+  },
+  "checkpoints": {
+    "cyclegan_final": {
+      "path": "task3_gan/ruchika_chaurasia/runs/final200_noid/checkpoints/cyclegan_final.pt",
+      "checkpoint_id": "bcbcfc109a7e",
+      "size_mb": 53.99
+    }
+  },
+  "results_files": [
+    "task3_gan/ruchika_chaurasia/runs/final200_noid/full_metrics_report.csv",
+    "task3_gan/ruchika_chaurasia/runs/final200_noid/results.md"
+  ],
+  "raw_log": "reproducibility/raw_logs/task3_gan_ruchika_chaurasia_final200_noid_20261002_062859.log"
+}

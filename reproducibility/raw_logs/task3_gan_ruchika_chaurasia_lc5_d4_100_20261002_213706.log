@@ -1,0 +1,43 @@
+[2026-10-02 21:37:06] raw log started: reproducibility/raw_logs/task3_gan_ruchika_chaurasia_lc5_d4_100_20261002_213706.log
+[2026-10-02 21:37:06] member: ruchika_chaurasia | run: lc5_d4_100 | config: config_lc5_d4_100.yaml | lineup: A | seed: 8283 | smoke: False
+[2026-10-02 21:37:06] hardware: {"cpu": "Intel(R) Core(TM) Ultra 9 285K", "cpu_count": 24, "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31", "python": "3.10.13", "torch": "2.11.0+cu128", "cuda_available": true, "gpu": "NVIDIA GeForce RTX 5090", "gpu_memory_gb": 31.84, "cuda": "12.8", "cudnn": 91900}
+[2026-10-02 21:37:06] config: {"member": "ruchika_chaurasia", "lineup": "A", "sid4": 8283, "seed": 8283, "data": {"photo_dir": "task3_gan/data/photo_jpg", "monet_dir": "task3_gan/data/monet_jpg", "image_size": 256, "load_size": 286, "max_train_photos": null}, "model": {"generator": "resnet", "ngf": 64, "n_res_blocks": 9, "ndf": 64, "d_layers": 4}, "train": {"gan_loss": "lsgan", "lambda_cycle": 5.0, "lambda_identity": 0.0, "lr": 0.0002, "beta1": 0.5, "batch_size": 1, "epochs": 100, "decay_start_epoch": 50, "steps_per_epoch": 1000, "pool_size": 50, "grad_clip": null, "amp": true, "diffaugment": null, "log_every": 50, "sample_every_epochs": 1, "resume": true}, "kaggle": {"public_score": null, "private_score": null, "rank": null}, "rationale": "* Same as lc5_100 plus a 4-layer PatchGAN (receptive field ~142x142 instead of 70x70; D params 2.8M -> 7.0M).\n* Hypothesis: a 70x70 D only checks local texture; larger patches also judge composition and global colour\n  palette, which is where generated Monets still differ from real ones (low precision / density).\n* Comparing with lc5_100 isolates the discriminator change.\n* Selection rule unchanged: held-out B2A FID / precision on the 500 held-out photos, not the Kaggle score.\n"}
+[2026-10-02 21:37:59] Monet (A): 300 | train photos (B): 6,538 | held-out eval photos: 500 | audit photos: 30 | loaded in 53s
+[2026-10-02 21:38:01] parameters: {"G_AB": 11378179, "G_BA": 11378179, "D_A": 6959553, "D_B": 6959553} | total: 36,675,464
+[2026-10-02 21:38:02] shape check: G_AB (1, 3, 256, 256) | D_B patch grid (1, 1, 14, 14)
+[2026-10-02 21:38:02] DiffAugment policy: none
+[2026-10-02 21:38:03] generator EMA decay: off
+[2026-10-02 21:40:52] EPOCH 1/100 (2.8 min): G 3.901 | D_A 0.354 D_B 0.367 | cyc 1.495/1.565 | idt 0.000/0.000 | |g| G 23.03 D 23.46 | lr 2.00e-04 | NaN 0
+[2026-10-02 21:43:48] EPOCH 2/100 (2.9 min): G 3.715 | D_A 0.237 D_B 0.261 | cyc 1.429/1.479 | idt 0.000/0.000 | |g| G 18.01 D 24.49 | lr 2.00e-04 | NaN 0
+[2026-10-02 21:46:42] EPOCH 3/100 (2.8 min): G 3.301 | D_A 0.216 D_B 0.254 | cyc 1.245/1.325 | idt 0.000/0.000 | |g| G 17.29 D 23.68 | lr 2.00e-04 | NaN 0
+[2026-10-02 21:49:42] EPOCH 4/100 (3.0 min): G 3.153 | D_A 0.221 D_B 0.240 | cyc 1.186/1.248 | idt 0.000/0.000 | |g| G 16.99 D 22.91 | lr 2.00e-04 | NaN 0
+[2026-10-02 21:52:46] EPOCH 5/100 (3.0 min): G 3.024 | D_A 0.220 D_B 0.229 | cyc 1.088/1.216 | idt 0.000/0.000 | |g| G 18.24 D 22.73 | lr 2.00e-04 | NaN 0
+[2026-10-02 21:55:51] EPOCH 6/100 (3.0 min): G 2.888 | D_A 0.206 D_B 0.235 | cyc 1.070/1.110 | idt 0.000/0.000 | |g| G 18.64 D 22.50 | lr 2.00e-04 | NaN 0
+[2026-10-02 21:58:59] EPOCH 7/100 (3.1 min): G 2.823 | D_A 0.197 D_B 0.239 | cyc 1.033/1.085 | idt 0.000/0.000 | |g| G 18.86 D 21.56 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:02:13] EPOCH 8/100 (3.2 min): G 2.778 | D_A 0.188 D_B 0.245 | cyc 1.017/1.074 | idt 0.000/0.000 | |g| G 19.09 D 20.53 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:05:12] EPOCH 9/100 (2.9 min): G 2.797 | D_A 0.193 D_B 0.238 | cyc 0.998/1.075 | idt 0.000/0.000 | |g| G 18.99 D 20.42 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:08:15] EPOCH 10/100 (3.0 min): G 2.739 | D_A 0.186 D_B 0.231 | cyc 0.995/1.038 | idt 0.000/0.000 | |g| G 18.66 D 19.76 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:11:11] EPOCH 11/100 (2.9 min): G 2.654 | D_A 0.203 D_B 0.228 | cyc 0.978/1.018 | idt 0.000/0.000 | |g| G 15.91 D 18.36 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:14:14] EPOCH 12/100 (3.0 min): G 2.628 | D_A 0.189 D_B 0.229 | cyc 0.950/1.001 | idt 0.000/0.000 | |g| G 17.63 D 18.13 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:17:14] EPOCH 13/100 (2.9 min): G 2.568 | D_A 0.190 D_B 0.234 | cyc 0.934/0.989 | idt 0.000/0.000 | |g| G 16.77 D 17.09 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:20:15] EPOCH 14/100 (3.0 min): G 2.525 | D_A 0.182 D_B 0.219 | cyc 0.943/0.952 | idt 0.000/0.000 | |g| G 16.63 D 15.83 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:23:13] EPOCH 15/100 (2.9 min): G 2.600 | D_A 0.176 D_B 0.229 | cyc 0.948/1.002 | idt 0.000/0.000 | |g| G 16.80 D 15.82 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:26:15] EPOCH 16/100 (3.0 min): G 2.425 | D_A 0.178 D_B 0.224 | cyc 0.901/0.910 | idt 0.000/0.000 | |g| G 16.20 D 14.88 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:29:18] EPOCH 17/100 (3.0 min): G 2.494 | D_A 0.163 D_B 0.225 | cyc 0.918/0.907 | idt 0.000/0.000 | |g| G 15.57 D 14.73 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:32:21] EPOCH 18/100 (3.0 min): G 2.545 | D_A 0.146 D_B 0.213 | cyc 0.895/0.933 | idt 0.000/0.000 | |g| G 16.56 D 14.49 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:35:22] EPOCH 19/100 (3.0 min): G 2.557 | D_A 0.128 D_B 0.211 | cyc 0.873/0.888 | idt 0.000/0.000 | |g| G 15.62 D 13.83 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:38:21] EPOCH 20/100 (2.9 min): G 2.585 | D_A 0.120 D_B 0.211 | cyc 0.881/0.877 | idt 0.000/0.000 | |g| G 15.53 D 13.43 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:41:15] EPOCH 21/100 (2.9 min): G 2.619 | D_A 0.114 D_B 0.206 | cyc 0.878/0.904 | idt 0.000/0.000 | |g| G 14.82 D 13.41 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:44:19] EPOCH 22/100 (3.0 min): G 2.633 | D_A 0.104 D_B 0.201 | cyc 0.877/0.867 | idt 0.000/0.000 | |g| G 15.93 D 12.87 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:47:36] EPOCH 23/100 (3.2 min): G 2.654 | D_A 0.091 D_B 0.207 | cyc 0.850/0.871 | idt 0.000/0.000 | |g| G 15.28 D 12.37 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:50:36] EPOCH 24/100 (2.9 min): G 2.671 | D_A 0.084 D_B 0.203 | cyc 0.863/0.838 | idt 0.000/0.000 | |g| G 14.57 D 12.21 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:53:34] EPOCH 25/100 (2.9 min): G 2.656 | D_A 0.073 D_B 0.205 | cyc 0.826/0.833 | idt 0.000/0.000 | |g| G 14.58 D 11.82 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:56:42] EPOCH 26/100 (3.1 min): G 2.707 | D_A 0.063 D_B 0.201 | cyc 0.848/0.820 | idt 0.000/0.000 | |g| G 15.34 D 11.59 | lr 2.00e-04 | NaN 0
+[2026-10-02 22:59:41] EPOCH 27/100 (2.9 min): G 2.681 | D_A 0.063 D_B 0.198 | cyc 0.830/0.806 | idt 0.000/0.000 | |g| G 14.90 D 11.43 | lr 2.00e-04 | NaN 0
+[2026-10-02 23:02:49] EPOCH 28/100 (3.1 min): G 2.664 | D_A 0.057 D_B 0.197 | cyc 0.814/0.797 | idt 0.000/0.000 | |g| G 14.91 D 11.46 | lr 2.00e-04 | NaN 0
+[2026-10-02 23:05:53] EPOCH 29/100 (3.0 min): G 2.716 | D_A 0.056 D_B 0.196 | cyc 0.822/0.799 | idt 0.000/0.000 | |g| G 14.43 D 11.26 | lr 2.00e-04 | NaN 0
+[2026-10-02 23:09:05] EPOCH 30/100 (3.1 min): G 2.703 | D_A 0.055 D_B 0.191 | cyc 0.822/0.795 | idt 0.000/0.000 | |g| G 15.10 D 11.12 | lr 2.00e-04 | NaN 0
+[2026-10-02 23:12:04] EPOCH 31/100 (2.9 min): G 2.716 | D_A 0.049 D_B 0.189 | cyc 0.810/0.786 | idt 0.000/0.000 | |g| G 15.80 D 11.08 | lr 2.00e-04 | NaN 0
+[2026-10-02 23:14:56] EPOCH 32/100 (2.8 min): G 2.724 | D_A 0.049 D_B 0.185 | cyc 0.804/0.775 | idt 0.000/0.000 | |g| G 16.38 D 11.21 | lr 2.00e-04 | NaN 0
+[2026-10-02 23:18:03] EPOCH 33/100 (3.0 min): G 2.772 | D_A 0.042 D_B 0.176 | cyc 0.811/0.778 | idt 0.000/0.000 | |g| G 14.53 D 10.49 | lr 2.00e-04 | NaN 0
+[2026-10-02 23:20:59] EPOCH 34/100 (2.9 min): G 2.814 | D_A 0.046 D_B 0.164 | cyc 0.801/0.790 | idt 0.000/0.000 | |g| G 14.77 D 10.55 | lr 2.00e-04 | NaN 0

@@ -1,0 +1,130 @@
+{
+  "task": "task2_sentiment",
+  "member": "ruchika_chaurasia",
+  "created": "20261002_000655",
+  "smoke_run": false,
+  "git_commit": "unknown (not a git checkout)",
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) Ultra 9 285K",
+    "cpu_count": 24,
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.13",
+    "torch": "2.11.0+cu128",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 5090",
+    "gpu_memory_gb": 31.84,
+    "cuda": "12.8",
+    "cudnn": 91900
+  },
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "numpy": "1.26.2",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.9",
+    "datasets": "5.0.1",
+    "nltk": "3.10.3",
+    "torchmetrics": "1.9.0",
+    "torch-fidelity": "0.4.0",
+    "pyyaml": "6.0.1"
+  },
+  "config": {
+    "member": "ruchika_chaurasia",
+    "lineup": "A",
+    "sid4": 8283,
+    "seed": 8283,
+    "data": {
+      "hf_name": "fancyzhx/yelp_polarity",
+      "local_csv_dir": null,
+      "train_size": 200000,
+      "val_size": 20000,
+      "test_size": null
+    },
+    "preprocess": {
+      "lowercase": true,
+      "remove_stopwords": true,
+      "keep_negations": true,
+      "normalizer": "lemmatize",
+      "max_vocab": 40000,
+      "min_freq": 3,
+      "max_len": 256,
+      "truncation": "head_tail"
+    },
+    "review_model": null,
+    "models": [
+      {
+        "name": "A_baseline_embbag",
+        "role": "baseline",
+        "type": "embbag",
+        "emb_dim": 100,
+        "ngram": 1,
+        "hidden": 0,
+        "dropout": 0.2,
+        "lr": 0.005,
+        "weight_decay": 0.0,
+        "batch_size": 512,
+        "epochs": 5,
+        "patience": 2,
+        "why": "Bag of learned word embeddings (fastText-style, unigrams only). It is the simplest model that still learns embeddings, it trains in about a minute, and it sets a lower bound. Anything more complex must beat it, otherwise the added word-order modelling is not paying for itself."
+      },
+      {
+        "name": "A_exp1_textcnn",
+        "role": "experimental",
+        "type": "textcnn",
+        "emb_dim": 128,
+        "kernels": [
+          3,
+          4,
+          5
+        ],
+        "filters": 128,
+        "dropout": 0.5,
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "batch_size": 256,
+        "epochs": 4,
+        "patience": 2,
+        "why": "Changes the ARCHITECTURE: convolutions of width 3/4/5 learn local phrase detectors ('not worth it', 'will be back'), which the bag model cannot represent. Max-over-time pooling makes a phrase count wherever it appears. Dropout 0.5 follows Kim (2014)."
+      },
+      {
+        "name": "A_exp2_bilstm_attn",
+        "role": "experimental",
+        "type": "bilstm_attn",
+        "emb_dim": 128,
+        "hidden": 128,
+        "layers": 1,
+        "dropout": 0.3,
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "batch_size": 256,
+        "epochs": 4,
+        "patience": 2,
+        "why": "Changes the ARCHITECTURE again: a bidirectional LSTM reads the whole review in order, so it can carry negation and contrast ('good food but awful service') across long spans. Attention pooling learns which positions matter, and its weights are inspectable during error review."
+      }
+    ]
+  },
+  "checkpoints": {
+    "A_baseline_embbag": {
+      "path": "task2_sentiment/ruchika_chaurasia/checkpoints/A_baseline_embbag.pt",
+      "checkpoint_id": "4cf09316ac72",
+      "size_mb": 15.05
+    },
+    "A_exp1_textcnn": {
+      "path": "task2_sentiment/ruchika_chaurasia/checkpoints/A_exp1_textcnn.pt",
+      "checkpoint_id": "977844e053f5",
+      "size_mb": 20.02
+    },
+    "A_exp2_bilstm_attn": {
+      "path": "task2_sentiment/ruchika_chaurasia/checkpoints/A_exp2_bilstm_attn.pt",
+      "checkpoint_id": "ff1c3543fe50",
+      "size_mb": 20.53
+    }
+  },
+  "results_files": [
+    "task2_sentiment/ruchika_chaurasia/metrics_report.csv",
+    "task2_sentiment/ruchika_chaurasia/results.md"
+  ],
+  "raw_log": "reproducibility/raw_logs/task2_sentiment_ruchika_chaurasia_20261002_000303.log"
+}
