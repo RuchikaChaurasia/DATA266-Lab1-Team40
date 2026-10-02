@@ -1,0 +1,38 @@
+# Filled in by the team; read by report/build_report.py
+team_number: N                      # <- your team number from Canvas
+member_names: ["Ruchika Chaurasia", "<partner name>"]
+repo_url: https://github.com/<user>/<repo>     # <- link to the shared GitHub repo
+date: "October 2026"
+
+member_folders: [ruchika_chaurasia, member_b]
+owners:                             # how each folder is labelled in the tables
+  ruchika_chaurasia: "Ruchika Chaurasia"
+  member_b: "Lineup B — <owner>"
+
+# Keep this TRUE. Pick the version that matches what actually happened (and what the ISAs approved).
+ownership_statement: |
+  TODO — state exactly who designed, coded, trained and evaluated each folder. For example:
+  * If you ran both lineups (with instructor/ISA approval): "Ruchika Chaurasia designed, implemented,
+    trained and evaluated both lineup A (ruchika_chaurasia/) and lineup B (member_b/) for all three
+    tasks because <partner> was unavailable; approved by <ISA name> on <date>. <Partner> contributed: <...>."
+  * If the partner returns and runs lineup B himself: "<Partner> owns member_b/ ...; Ruchika owns ruchika_chaurasia/ ..."
+  Shared components (eval scripts, audit tooling, report) were agreed jointly / written by: <...>.
+  AI assistance is disclosed in each member's AI_USE.md.
+
+citations:
+  - "Vaswani, A., et al. (2017). Attention Is All You Need. NeurIPS."
+  - "Eldan, R., & Li, Y. (2023). TinyStories: How Small Can Language Models Be and Still Speak Coherent English? arXiv:2305.07759."
+  - "Zhu, J.-Y., Park, T., Isola, P., & Efros, A. A. (2017). Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks. ICCV."
+  - "Zhang, X., Zhao, J., & LeCun, Y. (2015). Character-level Convolutional Networks for Text Classification. NeurIPS (Yelp Polarity dataset)."
+  - "Kim, Y. (2014). Convolutional Neural Networks for Sentence Classification. EMNLP."
+  - "Joulin, A., et al. (2017). Bag of Tricks for Efficient Text Classification. EACL."
+  - "Heusel, M., et al. (2017). GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium (FID). NeurIPS."
+  - "Bińkowski, M., et al. (2018). Demystifying MMD GANs (KID). ICLR."
+  - "Kynkäänniemi, T., et al. (2019). Improved Precision and Recall Metric for Assessing Generative Models. NeurIPS."
+  - "Naeem, M. F., et al. (2020). Reliable Fidelity and Diversity Metrics for Generative Models (density/coverage). ICML."
+  - "Zhang, R., et al. (2018). The Unreasonable Effectiveness of Deep Features as a Perceptual Metric (LPIPS). CVPR."
+  - "Mao, X., et al. (2017). Least Squares Generative Adversarial Networks. ICCV."
+  - "Isola, P., et al. (2017). Image-to-Image Translation with Conditional Adversarial Networks (U-Net/PatchGAN). CVPR."
+  - "Guo, C., et al. (2017). On Calibration of Modern Neural Networks (ECE). ICML."
+  - "McNemar, Q. (1947). Note on the sampling error of the difference between correlated proportions. Psychometrika."
+  - "Landis, J. R., & Koch, G. G. (1977). The Measurement of Observer Agreement for Categorical Data. Biometrics."

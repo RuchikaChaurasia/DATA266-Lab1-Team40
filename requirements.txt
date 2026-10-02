@@ -1,0 +1,18 @@
+# Python 3.10+ ; on Google Colab only datasets / nltk / torch-fidelity / markdown are usually missing
+torch>=2.3
+torchvision>=0.18
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+scikit-learn>=1.3
+scipy>=1.10
+pyyaml>=6.0
+pillow>=9.5
+datasets>=2.18        # TinyStories + Yelp Polarity download
+nltk>=3.8             # stopwords, WordNet lemmatizer, Porter stemmer
+torchmetrics>=1.3     # Inception feature extractor + LPIPS (metrics only)
+torch-fidelity>=0.3   # Inception weights used by torchmetrics
+jupyter
+nbconvert
+markdown              # report/build_report.py
+jupytext              # only needed to rebuild notebooks from scripts/nb_src/

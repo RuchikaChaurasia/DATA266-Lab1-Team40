@@ -1,0 +1,32 @@
+# large or regenerable data
+task1_llm/data/*
+!task1_llm/data/README.md
+task2_sentiment/data/*
+!task2_sentiment/data/README.md
+task3_gan/data/*
+!task3_gan/data/README.md
+**/data_processed/*.pkl
+**/data_processed/*.npy
+task3_gan/audit/pack/
+
+# resume checkpoints (keep them on Google Drive; final checkpoints ARE committed)
+**/checkpoints/last.pt
+
+# smoke tests and Kaggle upload files
+_smoke/
+_kaggle/
+**/official_eval_*/
+reproducibility/raw_logs/*_smoke_*
+reproducibility/manifests/*_smoke_*
+
+# secrets and clutter
+kaggle.json
+.env
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+
+# personal / OS files, not part of the repo
+Lab1.pdf
+Commands_Lab1.pdf
+.DS_Store
