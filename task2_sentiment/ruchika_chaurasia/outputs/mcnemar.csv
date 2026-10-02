@@ -1,0 +1,3 @@
+baseline,compared_model,b_base_only_correct,c_other_only_correct,statistic,p_value,method
+A_baseline_embbag,A_exp1_textcnn,906,1113,21.018325903912828,4.549112619741195e-06,chi2 (continuity corrected)
+A_baseline_embbag,A_exp2_bilstm_attn,811,1329,124.90140186915887,5.348740084104202e-29,chi2 (continuity corrected)

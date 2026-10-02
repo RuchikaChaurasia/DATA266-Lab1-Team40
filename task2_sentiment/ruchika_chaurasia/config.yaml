@@ -1,0 +1,65 @@
+# Task 2 · Lineup A · owner: ruchika_chaurasia
+member: ruchika_chaurasia
+lineup: A
+sid4: 8283
+seed: 8283
+
+data:
+  hf_name: fancyzhx/yelp_polarity
+  local_csv_dir: null        # fallback: folder (relative to repo root) with fast.ai train.csv / test.csv
+  train_size: 200000         # stratified subset of the cleaned 560K train split
+  val_size: 20000
+  test_size: null            # null = full official test split (38,000)
+
+preprocess:
+  lowercase: true
+  remove_stopwords: true
+  keep_negations: true
+  normalizer: lemmatize      # lemmatize | stem | none
+  max_vocab: 40000
+  min_freq: 3
+  max_len: 256
+  truncation: head_tail
+
+review_model: null           # null = best experimental model by validation macro-F1
+
+models:
+  - name: A_baseline_embbag
+    role: baseline
+    type: embbag
+    emb_dim: 100
+    ngram: 1
+    hidden: 0
+    dropout: 0.2
+    lr: 5.0e-3
+    weight_decay: 0.0
+    batch_size: 512
+    epochs: 5
+    patience: 2
+    why: "Bag of learned word embeddings (fastText-style, unigrams only). It is the simplest model that still learns embeddings, it trains in about a minute, and it sets a lower bound. Anything more complex must beat it, otherwise the added word-order modelling is not paying for itself."
+  - name: A_exp1_textcnn
+    role: experimental
+    type: textcnn
+    emb_dim: 128
+    kernels: [3, 4, 5]
+    filters: 128
+    dropout: 0.5
+    lr: 1.0e-3
+    weight_decay: 1.0e-4
+    batch_size: 256
+    epochs: 4
+    patience: 2
+    why: "Changes the ARCHITECTURE: convolutions of width 3/4/5 learn local phrase detectors ('not worth it', 'will be back'), which the bag model cannot represent. Max-over-time pooling makes a phrase count wherever it appears. Dropout 0.5 follows Kim (2014)."
+  - name: A_exp2_bilstm_attn
+    role: experimental
+    type: bilstm_attn
+    emb_dim: 128
+    hidden: 128
+    layers: 1
+    dropout: 0.3
+    lr: 1.0e-3
+    weight_decay: 1.0e-4
+    batch_size: 256
+    epochs: 4
+    patience: 2
+    why: "Changes the ARCHITECTURE again: a bidirectional LSTM reads the whole review in order, so it can carry negation and contrast ('good food but awful service') across long spans. Attention pooling learns which positions matter, and its weights are inspectable during error review."
