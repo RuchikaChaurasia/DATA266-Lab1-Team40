@@ -1,0 +1,89 @@
+{
+  "task": "task3_gan",
+  "member": "ruchika_chaurasia_lc5_100",
+  "created": "20261003_023451",
+  "smoke_run": false,
+  "git_commit": "unknown (not a git checkout)",
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) Ultra 9 285K",
+    "cpu_count": 24,
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.13",
+    "torch": "2.11.0+cu128",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 5090",
+    "gpu_memory_gb": 31.84,
+    "cuda": "12.8",
+    "cudnn": 91900
+  },
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "numpy": "1.26.2",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.9",
+    "datasets": "5.0.1",
+    "nltk": "3.10.3",
+    "torchmetrics": "1.9.0",
+    "torch-fidelity": "0.4.0",
+    "pyyaml": "6.0.1"
+  },
+  "config": {
+    "member": "ruchika_chaurasia",
+    "lineup": "A",
+    "sid4": 8283,
+    "seed": 8283,
+    "data": {
+      "photo_dir": "task3_gan/data/photo_jpg",
+      "monet_dir": "task3_gan/data/monet_jpg",
+      "image_size": 256,
+      "load_size": 286,
+      "max_train_photos": null
+    },
+    "model": {
+      "generator": "resnet",
+      "ngf": 64,
+      "n_res_blocks": 9,
+      "ndf": 64,
+      "d_layers": 3
+    },
+    "train": {
+      "gan_loss": "lsgan",
+      "lambda_cycle": 5.0,
+      "lambda_identity": 0.0,
+      "lr": 0.0002,
+      "beta1": 0.5,
+      "batch_size": 1,
+      "epochs": 100,
+      "decay_start_epoch": 50,
+      "steps_per_epoch": 1000,
+      "pool_size": 50,
+      "grad_clip": null,
+      "amp": true,
+      "diffaugment": null,
+      "log_every": 50,
+      "sample_every_epochs": 1,
+      "resume": true
+    },
+    "kaggle": {
+      "public_score": null,
+      "private_score": null,
+      "rank": null
+    },
+    "rationale": "* Diagnosis from all runs so far: photo->Monet outputs are too conservative. B2A precision/density rose\n  0.26/0.16 (30 ep) -> 0.53/0.45 (final200_noid) as constraints were relaxed (longer training, identity 0.5 -> 0).\n* The remaining strong constraint is the cycle loss (lambda 10). Halving it lets G_BA move further from the photo\n  while still being reversible. Risk: weaker content preservation (watch content_cosine and cycle_l1).\n* 100 epochs because final200 vs long100 showed little gain beyond ~100 epochs.\n* Selection rule unchanged: held-out B2A FID / precision on the 500 held-out photos, not the Kaggle score.\n"
+  },
+  "checkpoints": {
+    "cyclegan_final": {
+      "path": "task3_gan/ruchika_chaurasia/runs/lc5_100/checkpoints/cyclegan_final.pt",
+      "checkpoint_id": "b9eed262df20",
+      "size_mb": 53.99
+    }
+  },
+  "results_files": [
+    "task3_gan/ruchika_chaurasia/runs/lc5_100/full_metrics_report.csv",
+    "task3_gan/ruchika_chaurasia/runs/lc5_100/results.md"
+  ],
+  "raw_log": "reproducibility/raw_logs/task3_gan_ruchika_chaurasia_lc5_100_20261002_213704.log"
+}
