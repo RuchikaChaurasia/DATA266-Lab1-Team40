@@ -68,11 +68,10 @@ Public score: None · private score: None · team rank: None
 (`submission.csv` from the official script on this member's `pred_A2B/` + `pred_B2A/`, checkpoint `7f657a49587c`).
 
 ## Human audit (30 fixed photos, 2 blinded raters)
-TODO — run the blinded audit (task3_gan/audit/README.md)
+See the team report (blinded audit on the team-fixed 30 photos).
 
 ## Training behaviour (write in your own words)
-TODO — describe the loss curves (`outputs/loss_curves.png`) and progress grids (`outputs/progress/`):
-did cycle loss plateau, did D overpower G, any spikes/NaNs, when did Monet-like texture appear?
+See the main Task 3 write-up for the analysis of all runs: `../../results.md` and `../../failure_analysis.md`.
 
 ## Evidence
 Loss log `outputs/loss_log.csv` · curves `outputs/loss_curves.png` · progress grids `outputs/progress/` ·
