@@ -1,0 +1,54 @@
+# Task 3 · Lineup A · owner: ruchika_chaurasia
+member: ruchika_chaurasia
+lineup: A
+sid4: 8283
+seed: 8283
+
+data:
+  photo_dir: task3_gan/data/photo_jpg
+  monet_dir: task3_gan/data/monet_jpg
+  image_size: 256
+  load_size: 286            # resize to 286 then random-crop 256 (paper's jitter) + horizontal flip
+  max_train_photos: null
+
+model:                      # ~11.4M params per generator, ~2.8M per discriminator (fp16 checkpoint of all four ~57 MB)
+  generator: resnet
+  ngf: 64
+  n_res_blocks: 9
+  ndf: 64
+  d_layers: 3               # 70x70 PatchGAN
+
+train:
+  gan_loss: lsgan
+  lambda_cycle: 10.0
+  lambda_identity: 0.5      # identity weight = 0.5 * lambda_cycle (paper, painting<->photo)
+  lr: 2.0e-4
+  beta1: 0.5
+  batch_size: 1
+  epochs: 30
+  decay_start_epoch: 15     # constant lr for 15 epochs, then linear decay to 0
+  steps_per_epoch: 1000     # 30,000 unpaired iterations in total
+  pool_size: 50
+  grad_clip: null           # gradients are measured every step, not clipped (as in the paper)
+  amp: true
+  log_every: 50
+  sample_every_epochs: 1
+  resume: true
+
+
+kaggle:                     # submission.csv comes from the official script; upload it from the owner's Kaggle account
+  public_score: -61.9685        
+  private_score: null
+  rank: null
+
+rationale: |
+  * Faithful reproduction of the CycleGAN paper's 256x256 setup (ResNet-9 generator, 70x70 PatchGAN,
+    LSGAN loss, lambda_cyc = 10, identity 0.5, Adam 2e-4 / beta1 0.5, image pool 50). This is the reference
+    configuration, so any teammate's deviation can be judged against it.
+  * ResNet generator: the residual blocks start close to the identity function, which suits style
+    transfer. The photo's layout should survive; only texture and colour change.
+  * LSGAN (least squares) gives non-saturating gradients and was more stable than BCE in the paper.
+  * Identity loss 0.5: Monet<->photo translation otherwise tends to shift overall colour (e.g. turning
+    daytime photos into sunsets), which hurts content preservation.
+  * 30 x 1000 unpaired steps fits in a few T4 hours with AMP. Half constant then linear decay follows the
+    paper's 100 + 100 schedule, compressed.

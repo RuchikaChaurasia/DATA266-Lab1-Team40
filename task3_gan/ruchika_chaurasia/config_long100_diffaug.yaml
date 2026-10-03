@@ -1,0 +1,52 @@
+# Task 3 · Lineup A · EXTRA RUN 'long100_diffaug' · owner: ruchika_chaurasia
+# Same model as config.yaml; only the training budget and DiffAugment change.
+# Start with:  bash scripts/run_task3_extra.sh long100_diffaug   -> outputs in task3_gan/ruchika_chaurasia/runs/long100_diffaug/
+member: ruchika_chaurasia
+lineup: A
+sid4: 8283
+seed: 8283
+
+data:
+  photo_dir: task3_gan/data/photo_jpg
+  monet_dir: task3_gan/data/monet_jpg
+  image_size: 256
+  load_size: 286            # resize to 286 then random-crop 256 (paper's jitter) + horizontal flip
+  max_train_photos: null
+
+model:                      # ~11.4M params per generator, ~2.8M per discriminator (fp16 checkpoint of all four ~57 MB)
+  generator: resnet
+  ngf: 64
+  n_res_blocks: 9
+  ndf: 64
+  d_layers: 3               # 70x70 PatchGAN
+
+train:
+  gan_loss: lsgan
+  lambda_cycle: 10.0
+  lambda_identity: 0.5      # identity weight = 0.5 * lambda_cycle (paper, painting<->photo)
+  lr: 2.0e-4
+  beta1: 0.5
+  batch_size: 1
+  epochs: 100
+  decay_start_epoch: 50     # constant lr for 50 epochs, then linear decay to 0 (paper: 100 + 100)
+  steps_per_epoch: 1000     # 100,000 unpaired iterations in total
+  pool_size: 50
+  grad_clip: null           # gradients are measured every step, not clipped (as in the paper)
+  amp: true
+  diffaugment: "color,translation,cutout"   # applied identically to real and fake images seen by D
+  log_every: 50
+  sample_every_epochs: 1
+  resume: true
+
+
+kaggle:                     # submission.csv comes from the official script; upload it from the owner's Kaggle account
+  public_score: null        # <- fill in after submitting
+  private_score: null
+  rank: null
+
+rationale: |
+  * Same as 'long100' plus DiffAugment (Zhao et al., 2020) on every discriminator input, real and fake.
+  * Hypothesis: with only 300 Monet paintings, D_A can memorise the training set late in a long run, which
+    gives G poor gradients and causes artefacts. Differentiable augmentation applied identically to real and fake
+    images prevents that without changing what the generator is asked to produce.
+  * Tests the effect of data-efficient GAN training on the painting domain (compare with 'long100').

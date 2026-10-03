@@ -30,3 +30,7 @@ __pycache__/
 Lab1.pdf
 Commands_Lab1.pdf
 .DS_Store
+**/runs/*/outputs/progress/
+**/runs/*/checkpoints/*
+!task3_gan/ruchika_chaurasia/runs/final200_noid/checkpoints/cyclegan_final.pt
+!task3_gan/ruchika_chaurasia/runs/long100/checkpoints/cyclegan_final.pt

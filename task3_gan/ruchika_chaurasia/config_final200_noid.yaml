@@ -1,0 +1,54 @@
+# Task 3 · Lineup A · EXTRA RUN 'final200_noid' · owner: ruchika_chaurasia
+# Same model as long100; changes: the paper's full 200-epoch schedule and the identity loss removed.
+# Start with:  bash scripts/run_task3_extra.sh final200_noid   -> outputs in task3_gan/ruchika_chaurasia/runs/final200_noid/
+member: ruchika_chaurasia
+lineup: A
+sid4: 8283
+seed: 8283
+
+data:
+  photo_dir: task3_gan/data/photo_jpg
+  monet_dir: task3_gan/data/monet_jpg
+  image_size: 256
+  load_size: 286            # resize to 286 then random-crop 256 (paper's jitter) + horizontal flip
+  max_train_photos: null
+
+model:                      # ~11.4M params per generator, ~2.8M per discriminator (fp16 checkpoint of all four ~57 MB)
+  generator: resnet
+  ngf: 64
+  n_res_blocks: 9
+  ndf: 64
+  d_layers: 3               # 70x70 PatchGAN
+
+train:
+  gan_loss: lsgan
+  lambda_cycle: 10.0
+  lambda_identity: 0.0      # was 0.5 -> identity loss switched off (maximum stylization)
+  lr: 2.0e-4
+  beta1: 0.5
+  batch_size: 1
+  epochs: 200
+  decay_start_epoch: 100    # paper schedule: 100 epochs constant lr + 100 epochs linear decay to 0
+  steps_per_epoch: 1000     # 200,000 unpaired iterations in total
+  pool_size: 50
+  grad_clip: null           # gradients are measured every step, not clipped (as in the paper)
+  amp: true
+  diffaugment: null         # DiffAugment did not help (long100_diffaug official FID 108.99 vs long100 104.70)
+  log_every: 50
+  sample_every_epochs: 1
+  resume: true
+
+
+kaggle:                     # submission.csv comes from the official script; upload it from the owner's Kaggle account
+  public_score: -50.7560        # <- fill in after submitting
+  private_score: null
+  rank: 11
+
+rationale: |
+  * long100 outputs are too conservative: photo->Monet precision 0.426 / density 0.296, low input-vs-translation
+    LPIPS, and DiffAugment (which made outputs even more conservative) scored worse.
+  * The identity loss explicitly rewards leaving images unchanged, so this run removes it entirely (0.0); the parallel run 'final200' uses 0.1.
+  * Full CycleGAN paper schedule (100 + 100 epochs) instead of 50 + 50.
+  * Risk: without identity loss, colours can shift in Monet->photo (noted in the CycleGAN paper).
+  * Selection between final200 / final200_noid / long100 is made on the held-out metrics (500 held-out photos),
+    not on Kaggle scores.

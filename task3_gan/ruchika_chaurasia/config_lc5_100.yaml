@@ -1,0 +1,53 @@
+# Task 3 · Lineup A · EXTRA RUN 'lc5_100' · owner: ruchika_chaurasia
+# final200_noid settings with a weaker cycle-consistency weight (10 -> 5), 100 epochs.
+# Start with:  bash scripts/run_task3_extra.sh lc5_100   -> outputs in task3_gan/ruchika_chaurasia/runs/lc5_100/
+member: ruchika_chaurasia
+lineup: A
+sid4: 8283
+seed: 8283
+
+data:
+  photo_dir: task3_gan/data/photo_jpg
+  monet_dir: task3_gan/data/monet_jpg
+  image_size: 256
+  load_size: 286            # resize to 286 then random-crop 256 (paper's jitter) + horizontal flip
+  max_train_photos: null
+
+model:                      # ~11.4M params per generator, ~2.8M per discriminator (fp16 checkpoint of all four ~57 MB)
+  generator: resnet
+  ngf: 64
+  n_res_blocks: 9
+  ndf: 64
+  d_layers: 3               # 70x70 PatchGAN
+
+train:
+  gan_loss: lsgan
+  lambda_cycle: 5.0         # was 10 -> weaker 'must be reversible' constraint, more freedom to stylise
+  lambda_identity: 0.0      # was 0.5 -> identity loss switched off (maximum stylization)
+  lr: 2.0e-4
+  beta1: 0.5
+  batch_size: 1
+  epochs: 100
+  decay_start_epoch: 50     # 50 constant + 50 linear decay (gains after ~75-100 epochs were small in final200*)
+  steps_per_epoch: 1000     # 100,000 unpaired iterations in total
+  pool_size: 50
+  grad_clip: null           # gradients are measured every step, not clipped (as in the paper)
+  amp: true
+  diffaugment: null         # DiffAugment did not help (long100_diffaug official FID 108.99 vs long100 104.70)
+  log_every: 50
+  sample_every_epochs: 1
+  resume: true
+
+
+kaggle:                     # submission.csv comes from the official script; upload it from the owner's Kaggle account
+  public_score: null        # <- fill in after submitting
+  private_score: null
+  rank: null
+
+rationale: |
+  * Diagnosis from all runs so far: photo->Monet outputs are too conservative. B2A precision/density rose
+    0.26/0.16 (30 ep) -> 0.53/0.45 (final200_noid) as constraints were relaxed (longer training, identity 0.5 -> 0).
+  * The remaining strong constraint is the cycle loss (lambda 10). Halving it lets G_BA move further from the photo
+    while still being reversible. Risk: weaker content preservation (watch content_cosine and cycle_l1).
+  * 100 epochs because final200 vs long100 showed little gain beyond ~100 epochs.
+  * Selection rule unchanged: held-out B2A FID / precision on the 500 held-out photos, not the Kaggle score.

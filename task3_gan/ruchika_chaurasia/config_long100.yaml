@@ -1,0 +1,51 @@
+# Task 3 · Lineup A · EXTRA RUN 'long100' · owner: ruchika_chaurasia
+# Same model as config.yaml; only the training budget change.
+# Start with:  bash scripts/run_task3_extra.sh long100   -> outputs in task3_gan/ruchika_chaurasia/runs/long100/
+member: ruchika_chaurasia
+lineup: A
+sid4: 8283
+seed: 8283
+
+data:
+  photo_dir: task3_gan/data/photo_jpg
+  monet_dir: task3_gan/data/monet_jpg
+  image_size: 256
+  load_size: 286            # resize to 286 then random-crop 256 (paper's jitter) + horizontal flip
+  max_train_photos: null
+
+model:                      # ~11.4M params per generator, ~2.8M per discriminator (fp16 checkpoint of all four ~57 MB)
+  generator: resnet
+  ngf: 64
+  n_res_blocks: 9
+  ndf: 64
+  d_layers: 3               # 70x70 PatchGAN
+
+train:
+  gan_loss: lsgan
+  lambda_cycle: 10.0
+  lambda_identity: 0.5      # identity weight = 0.5 * lambda_cycle (paper, painting<->photo)
+  lr: 2.0e-4
+  beta1: 0.5
+  batch_size: 1
+  epochs: 100
+  decay_start_epoch: 50     # constant lr for 50 epochs, then linear decay to 0 (paper: 100 + 100)
+  steps_per_epoch: 1000     # 100,000 unpaired iterations in total
+  pool_size: 50
+  grad_clip: null           # gradients are measured every step, not clipped (as in the paper)
+  amp: true
+  diffaugment: null
+  log_every: 50
+  sample_every_epochs: 1
+  resume: true
+
+
+kaggle:                     # submission.csv comes from the official script; upload it from the owner's Kaggle account
+  public_score: -52.5597        # <- fill in after submitting
+  private_score: null
+  rank: null
+
+rationale: |
+  * Same architecture and losses as the main lineup-A run (ResNet-9, 70x70 PatchGAN, LSGAN, lambda_cyc 10,
+    lambda_id 0.5). Only the training budget changes: 100 x 1000 = 100K iterations instead of 30K.
+  * Hypothesis: the 30-epoch run was under-trained. Its cycle loss was still falling at epoch 30, and the CycleGAN
+    paper trains for ~200 epochs. A longer constant-LR phase followed by linear decay should lower FID in both directions.
