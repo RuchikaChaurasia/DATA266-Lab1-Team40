@@ -8,7 +8,7 @@ Hardware: NVIDIA GeForce RTX 5090, Windows, PyTorch 2.11.0 + CUDA 12.8, fp32 tra
 
 A CycleGAN written in `src/cyclegan.py`, trained from scratch on the competition data. Domain A is the 300 Monet paintings and domain B is the 7,038 photos, all 256 × 256 RGB. The two domains are sampled independently at every step, so no image is ever paired with another.
 
-- **Generators (×2).** `G_AB` maps Monet to photo and `G_BA` maps photo to Monet (the Kaggle direction). Each is a ResNet generator: a 7 × 7 convolution, two stride-2 downsampling convolutions, 9 residual blocks at 256 channels, two upsampling stages and a final 7 × 7 convolution with tanh. Instance normalisation and reflection padding are used throughout. For upsampling I used nearest-neighbour resize followed by a 3 × 3 convolution instead of transposed convolutions.
+- **Generators (×2).** `G_AB` maps Monet to photo and `G_BA` maps photo to Monet. Each is a ResNet generator: a 7 × 7 convolution, two stride-2 downsampling convolutions, 9 residual blocks at 256 channels, two upsampling stages and a final 7 × 7 convolution with tanh. Instance normalisation and reflection padding are used throughout. For upsampling I used nearest-neighbour resize followed by a 3 × 3 convolution instead of transposed convolutions.
 - **Discriminators (×2).** `D_A` judges Monet images and `D_B` judges photos. Each is a 70 × 70 PatchGAN: it outputs a grid of real/fake scores, one per overlapping 70 × 70 patch, rather than one score per image.
 - **Losses.** Least-squares adversarial loss for both generators and both discriminators, cycle-consistency loss `L1(G_BA(G_AB(a)), a) + L1(G_AB(G_BA(b)), b)` weighted by 10, and an identity loss `L1(G_BA(a), a) + L1(G_AB(b), b)` weighted by 0.3 × 10 = 3. The discriminators are trained on a history buffer of 50 previously generated images, as in the CycleGAN paper.
 
@@ -117,7 +117,7 @@ Computed by `src/evaluate_local.py` on all 7,038 photo → Monet translations an
 | training time | 56.6 min |
 | training throughput | 8.8 steps/s overall (about 4.5 while sharing the GPU with Task 1 in epochs 1–5, about 11 after) |
 | peak GPU memory | 3.34 GB training, 1.97 GB evaluation |
-| Kaggle public score | 46.9872 (mean of FID 93.564 and MiFID 0.410), rank 2 at submission |
+| Kaggle score (final, selected) | 51.9920: FID 103.562 (mean of 93.564 photo → Monet and 113.56 Monet → photo) and MiFID 0.4221 (mean of 0.4104 and 0.4338), averaged |
 
 Notes on reading these numbers:
 
