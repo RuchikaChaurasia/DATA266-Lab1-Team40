@@ -1,53 +1,57 @@
-# DATA 266 · Lab 1 — Team repository
+# DATA 266 · Lab 1 — Team 40
 
-Three generative-AI tasks, each done as **two independent model lineups** (A and B) that share one agreed
-evaluation script per task:
+**Members:** Ruchika Chaurasia (`ruchika_chaurasia/`) · Akhilesh Tandur (`akhilesh_tandur/`)
+**Kaggle team:** PairProgramming_Team_40
 
-| Task | What | Lineup A (`ruchika_chaurasia/`) | Lineup B (`member_b/`) |
+Three generative-AI tasks. Each member designs, trains and evaluates **their own models** for every task in their own
+member folder. Both members use one shared, agreed evaluation script per task, so the results are directly comparable.
+
+| Task | What | Ruchika Chaurasia (`ruchika_chaurasia/`) | Akhilesh Tandur (`akhilesh_tandur/`) |
 |---|---|---|---|
-| 1 | Char-level GPT from scratch on TinyStories | 4 layers × 256d, ctx 256, tied head, cosine LR | 6 layers × 288d, ctx 128, untied head, linear LR |
-| 2 | Yelp Polarity sentiment, embeddings from scratch | lemmatised · EmbBag → TextCNN → BiLSTM + attention | stemmed · EmbBag + bigrams → BiGRU-max → Transformer |
-| 3 | CycleGAN Monet ↔ photo + Kaggle | ResNet-9 G, 70×70 PatchGAN, LSGAN, λ_id 0.5 | U-Net G, 4-layer PatchGAN, BCE GAN, λ_id 0.1 |
+| 1 | Character-level GPT from scratch on TinyStories | 4 layers × 256d, 4 heads, context 256, 3.2M params · val loss 0.615 | 6 layers × 384d, 6 heads, context 256, 10.8M params · val loss 0.557 |
+| 2 | Yelp Polarity sentiment, embeddings learned from scratch | lemmatised text · EmbBag → TextCNN → BiLSTM + attention · best accuracy 94.25% | stemmed text · bag of words + MLP → CNN → BiLSTM + max pooling · best accuracy 93.09% |
+| 3 | CycleGAN Monet ↔ photo + Kaggle | ResNet-9 + transposed-conv upsampling, LSGAN; 8 runs, final `runs/final200_noid` (200 epochs, no identity loss) · Kaggle −50.7560 | ResNet-9 + resize-conv upsampling, LSGAN, λ_id 0.3, 30 epochs · Kaggle −51.9920 |
 
-Who built what is stated in the report's **ownership statement** (`report/report_info.yaml`), and AI
-assistance is disclosed in `AI_USE.md`.
+**Team report:** `report/DATA266_Lab1_Report_Team_40.pdf` (ownership statement, comparison tables for all tasks, joint analysis,
+human audit, references). AI assistance is disclosed in `AI_USE.md`.
 
 ---
 
 ## Repository layout
 
 ```
-common/runtime.py                 seeds, raw log, hardware, manifest (used by every notebook)
+common/runtime.py                 seeds, raw log, hardware info, manifest (used by every notebook)
 task1_llm/
-  data/                           TinyStories (auto-downloaded; see data/README.md)
+  data/                           TinyStories (downloaded automatically; see data/README.md)
   common/eval_task1.py            shared Task 1 metrics
   <member>/config.yaml            architecture + hyper-parameters + design rationale
   <member>/src/task1_llm.ipynb    executed notebook
-  <member>/data_processed/        split indices, vocab (char_to_idx / idx_to_char)
+  <member>/data_processed/        split indices, vocabulary (char_to_idx / idx_to_char)
   <member>/checkpoints/best.pt    trained weights
-  <member>/outputs/               loss curves, LR schedule, samples, logs
+  <member>/outputs/               loss curves, LR schedule, generated samples, logs
   <member>/metrics_report.csv · failure_analysis.md · results.md
-task2_sentiment/  (same pattern; common/eval_task2.py; 3 checkpoints per member)
+task2_sentiment/                  same pattern; common/eval_task2.py; 3 checkpoints per member
 task3_gan/
-  data/monet_jpg, data/photo_jpg  Kaggle data (download once; see data/README.md)
-  common/Part3_Evaluation_Script.ipynb  ISA's official FID/MiFID script (unchanged) → Kaggle submission.csv
+  data/monet_jpg, data/photo_jpg  competition images (not in git; see data/README.md)
+  common/Part3_Evaluation_Script.ipynb  the ISA's official FID/MiFID script, unchanged → Kaggle submission.csv
   common/metrics_task3.py         extra metrics: FID, KID, precision/recall/density/coverage, cycle L1, LPIPS, content cosine
-  common/data_task3.py            loading + team-fixed held-out/audit photo list
-  common/team_eval_split.json     500 held-out photos + 30 audit photos (created on first run, then committed)
-  <member>/src/task3_gan.ipynb    training notebook;  <member>/src/cyclegan_models.py
-  <member>/evaluate_local.py      reproduces full_metrics_report.csv, pred folders and submission.csv
+  common/data_task3.py            data loading + team-fixed held-out/audit photo list
+  common/team_eval_split.json     500 held-out photos + 30 audit photos (same for both members)
+  <member>/src/                   training notebook(s) and model code
+  <member>/evaluate_local.py      reproduces full_metrics_report.csv, prediction folders and submission.csv
   <member>/full_metrics_report.csv · submission.csv · outputs/pred_A2B (Monet→photo) · outputs/pred_B2A (photo→Monet)
-  audit/                          blinded 2-rater audit tooling (see audit/README.md)
+  ruchika_chaurasia/runs/<run>/   follow-up experiments, each with its own config_<run>.yaml, notebook, metrics, submission.csv
+  audit/                          blinded 2-rater human audit tooling and results
 reproducibility/
   manifests/                      per-run JSON (hardware, packages, config, checkpoint IDs) + pip freeze
-  raw_logs/                       unedited timestamped logs of every run
+  raw_logs/                       unedited, timestamped logs of every run
   smoke_test.sh                   ONE-COMMAND smoke test
-report/                           build_report.py → DATA266_Lab1_Report_Team_<N>.pdf
-scripts/                          notebook sources (scripts/nb_src) + build_notebooks.sh
+report/                           report builder and team report (PDF)
+scripts/                          notebook sources (scripts/nb_src), notebook builder, extra-run launcher, helpers
 ```
 
-All log timestamps are UTC. No personal paths are hard-coded. Every notebook finds the repo root by walking up from where it is
-run (or from `$REPO_ROOT`).
+All log timestamps are **UTC**. No personal paths are hard-coded: every notebook finds the repository root by walking up from
+the folder it runs in (or from `$REPO_ROOT`).
 
 ---
 
@@ -57,9 +61,9 @@ run (or from `$REPO_ROOT`).
 bash reproducibility/smoke_test.sh
 ```
 
-This installs `requirements.txt` and executes the Task 1 notebook of lineup A on a tiny setting (1,500 stories,
-2-layer model, 2 epochs). It takes a few minutes on CPU and needs internet for the TinyStories validation split.
-Outputs go to `_smoke/`, so committed results are never touched. Any notebook can be smoke-run the same way:
+This installs `requirements.txt` and runs Ruchika's Task 1 notebook end to end on a tiny setting (1,500 stories, 2-layer
+model, 2 epochs) in a few minutes on CPU or GPU. It needs internet access for the TinyStories validation split. Outputs go to
+`_smoke/`, so committed results are never touched. Any notebook can be smoke-tested the same way:
 
 ```bash
 SMOKE=1 jupyter nbconvert --to notebook --execute <task>/<member>/src/<notebook>.ipynb --output-dir _smoke
@@ -67,71 +71,64 @@ SMOKE=1 jupyter nbconvert --to notebook --execute <task>/<member>/src/<notebook>
 
 ---
 
-## Full runs
+## How Ruchika's results were produced
 
-### Setup
-* **Google Colab (T4):** put the repo in Google Drive, open a notebook, choose *Runtime → Change runtime type → T4 GPU*,
-  then run this first cell:
-  ```python
-  from google.colab import drive; drive.mount('/content/drive')
-  %cd /content/drive/MyDrive/<repo-folder>
-  ```
-  Checkpoints and outputs are then written straight to Drive. Task 3 copies the images to local disk automatically.
-* **Local / SJSU lab GPU:** `pip install -r requirements.txt`, then `jupyter lab` from the repo root.
+* **Hardware:** SJSU GPU lab, NVIDIA GeForce RTX 5090 (32 GB), Intel Core Ultra 9 285K, PyTorch 2.11.0+cu128, inside Docker.
+* **Setup:** `pip install -r requirements.txt` (the lab image already provided a CUDA 12.8 PyTorch build, which was kept).
+* **Runs:** each notebook was executed from a terminal with
+  `jupyter nbconvert --to notebook --execute --inplace <notebook> --ExecutePreprocessor.timeout=-1`,
+  so the committed notebooks contain all outputs.
+* **Measured times on the RTX 5090:** Task 1 11 min (10 epochs) · Task 2 about 4 min (3 models) · Task 3 main run 37 min (30 epochs).
+* **Extra Task 3 runs:** `bash scripts/run_task3_extra.sh <run>` trains a run defined by `task3_gan/ruchika_chaurasia/config_<run>.yaml`
+  and writes everything to `runs/<run>/`. Re-running the same command after an interruption resumes from the last saved epoch.
+  Several runs shared the GPU, so their wall-clock times are not comparable with the main run.
+* **Final Task 3 model:** `runs/final200_noid`, chosen by a rule fixed in advance (best held-out photo→Monet FID and precision).
 
-### Run order and rough T4 times (with AMP)
-| Notebook | Lineup A | Lineup B |
-|---|---|---|
-| `task3_gan/<member>/src/task3_gan.ipynb` | ~3–5 h (30 × 1,000 steps) | ~3–5 h |
-| `task1_llm/<member>/src/task1_llm.ipynb` | ~1–1.5 h (10 epochs) | ~2–3 h |
-| `task2_sentiment/<member>/src/task2_sentiment.ipynb` | ~30–60 min (3 models) | ~30–60 min |
+### Kaggle (Task 3)
+Every `submission.csv` is produced by running the ISA's evaluation script **unchanged** on the member's own `pred_A2B/` and
+`pred_B2A/` folders (`evaluate_local.py` does this automatically). Each member submits from their own Kaggle account into the
+team `PairProgramming_Team_40`. Scores and ranks are recorded in each member's config (`kaggle:` section) and in the report.
 
-These times are estimates; the real ones are recorded in each run's metrics. Task 1 and Task 3 save `last.pt`
-every epoch. If Colab disconnects, re-run the notebook from the top and it **resumes** from the last finished epoch.
+### Human audit (Task 3)
+Both members' final models were rated on 60 blinded items (30 per model) by two raters for style, content and artifacts (1–5).
+Rating sheets, sealed key, results and agreement (Cohen's κ) are in `task3_gan/audit/`; the analysis is in the team report.
+The tooling (`make_audit_pack.py`, `score_audit.py`) is described in `task3_gan/audit/README.md`.
 
-### Extra Task 3 runs (training-length / DiffAugment experiments)
-`bash scripts/run_task3_extra.sh long100 long100_diffaug` trains the same member's model with
-`config_long100.yaml` / `config_long100_diffaug.yaml` in the background and writes everything (executed notebook,
-checkpoints, metrics, `submission.csv`) to `task3_gan/<member>/runs/<run>/`. The main run is never modified.
-Runs trained before the gradient-norm fix can be corrected with `python scripts/fix_gradnorm_report.py task3_gan/<member>`.
-
-### After Task 3
-1. The notebook (or `python task3_gan/<member>/evaluate_local.py`) runs the ISA's official evaluation script unchanged
-   and writes `task3_gan/<member>/submission.csv` (ID, FID, MiFID). **Each member uploads their own** file to Kaggle
-   (team `PairProgramming_Team_##`) and records the score/rank in `task3_gan/<member>/config.yaml → kaggle`.
-2. Human audit: follow `task3_gan/audit/README.md` (build pack → 2 blinded raters → `score_audit.py`).
-3. Re-run the last cell of each Task 3 notebook to refresh `results.md`.
-
-### Report
-Edit `report/report_info.yaml` and `report/joint_analysis.md`, then run `python report/build_report.py`.
-Open the generated `.html` → Print → Save as PDF → `report/DATA266_Lab1_Report_Team_<N>.pdf`.
+### Kaggle selections
+Final selected submissions: −50.7560 (Ruchika, final200_noid), −51.9920 (Akhilesh), −52.5597 (Ruchika, long100).
 
 ---
 
-## Where each requirement is met
+## Where each requirement is met (paths relative to each member folder)
 
 | Requirement | Location |
 |---|---|
 | Hand-written attention, LayerNorm, FFN, residuals, embeddings, LM head (no prebuilt attention) | Task 1 notebook §1.2 (+ causal-mask unit test) |
-| Char tokenisation, `char_to_idx`/`idx_to_char`, 100K/10K split, fixed-length input→target | Task 1 §1.1, `data_processed/` |
-| ≥10 epochs, warm-up + schedule, cross-entropy | Task 1 §1.3, `outputs/lr_schedule.png` |
-| Train/val CE, perplexity, BPC, gap, top-1 acc, distinct-n, repeated 4-gram, grad norms/spikes/NaNs, params, tokens/s (train + gen), peak memory, time | `task1_llm/<member>/metrics_report.csv` |
-| Loss curves, samples, 3 failures | `outputs/loss_curves.png`, `outputs/samples.txt`, `failure_analysis.md` |
-| EDA (length, class distribution, balance), missing/malformed handling, cleaning, stopwords, lemmatise/stem, tokenise | Task 2 §2.1 |
-| 3 models, embeddings from scratch, justification, hardware recorded | Task 2 §2.2, `config.yaml → why`, `results.md` |
-| Accuracy, P/R/F1 (macro/micro/weighted), CM, ROC-AUC, PR-AUC, MCC, Brier, ECE, bootstrap CIs, McNemar, slices, params, time, ex/s, peak memory | `task2_sentiment/<member>/metrics_report.csv`, `outputs/slice_metrics.csv`, `outputs/mcnemar.csv` |
-| 20-error review (5 FP, 5 FN, 5 near-threshold, 5 slice) + testable fix | `failure_analysis.md`, `outputs/error_review_20.csv` |
-| CycleGAN both directions (A = Monet, B = photo, as in the course script), cycle consistency verified | Task 3 notebook, `outputs/figures/cycle_*.png` |
-| FID, KID, precision/recall/density/coverage, cycle L1, LPIPS, content cosine, losses, grad norms, NaNs, params, time, img/s, peak memory | `task3_gan/<member>/full_metrics_report.csv` |
-| Kaggle `submission.csv` from the official script, score + rank | `task3_gan/<member>/submission.csv`, `config.yaml → kaggle`, `results.md` |
+| Character tokenisation, `char_to_idx` / `idx_to_char`, 100K/10K split, fixed-length input → target | Task 1 §1.1, `data_processed/` |
+| ≥ 10 epochs, warm-up + schedule, cross-entropy | Task 1 §1.3, `outputs/lr_schedule.png` |
+| All Task 1 metrics | `task1_llm/<member>/metrics_report.csv`, `results.md` |
+| Loss curves, samples, 3 failure cases | `outputs/loss_curves.png`, `outputs/samples.txt`, `failure_analysis.md` |
+| EDA, missing/malformed handling, cleaning, stopwords, lemmatise/stem, tokenise, embeddings from scratch | Task 2 §2.1 |
+| 3 models, justification, hardware recorded per model | Task 2 §2.2, `config.yaml`, `results.md` |
+| All Task 2 metrics incl. bootstrap CIs, McNemar, slices | `task2_sentiment/<member>/metrics_report.csv`, `outputs/` |
+| 20-error review + testable fix | `failure_analysis.md`, `outputs/error_review_20.csv` |
+| CycleGAN (2 generators, 2 discriminators), both directions, cycle consistency verified | Task 3 notebook, `outputs/figures/cycle_*.png`, `results.md` |
+| All Task 3 metrics, both directions | `task3_gan/<member>/full_metrics_report.csv` (and `runs/<run>/` for each experiment) |
+| Kaggle submission (official script) + score/rank | `submission.csv`, `config*.yaml → kaggle`, `results.md` |
 | Blinded 30-sample audit, 2 raters, Cohen's κ | `task3_gan/audit/` |
-| Manifests, raw logs, checkpoint IDs | `reproducibility/` (checkpoint ID = first 12 hex chars of the file's SHA-256) |
+| Manifests, raw logs, checkpoint IDs | `reproducibility/` (checkpoint ID = first 12 hex characters of the file's SHA-256) |
 
-## Datasets (Google Drive, read access)
-Datasets are not pushed to GitHub. Zipped copies with read access enabled:
-* Task 1 TinyStories subset / Task 2 Yelp: downloaded automatically from Hugging Face (see `task*/data/README.md`)
-* Task 3 Monet + photos: TODO — paste the Google Drive link to `dataset.zip` here (Share → "Anyone with the link" → Viewer)
+---
+
+## Datasets and large files (Google Drive, read access)
+
+Datasets are not pushed to GitHub.
+* **Task 1 TinyStories / Task 2 Yelp Polarity:** downloaded automatically from Hugging Face (see `task*/data/README.md`).
+* **Task 3 Monet + photo images (`dataset.zip`):** https://drive.google.com/file/d/17TEwtkjtcYiiqnPxmNOHHeoixGIOFtiL/view?usp=sharing
+* **Checkpoints of Ruchika's non-submitted Task 3 runs** (final200, long100_diffaug, lc5_100, lc5_d4_100, lc5_ema_100):
+  https://drive.google.com/file/d/1tMw3kpL9CQrydxSG9E8pvb1J56ROI3j0/view?usp=sharing. The three submitted models (main run,
+  `runs/long100`, `runs/final200_noid`) are in the repository.
 
 ## Data and licences
-TinyStories (Eldan & Li, 2023; Hugging Face) · Yelp Polarity (Zhang et al., 2015) · Monet/photo images from the
-Kaggle "I'm Something of a Painter Myself" competition. Raw data is not committed (see `.gitignore`).
+TinyStories (Eldan & Li, 2023; Hugging Face) · Yelp Polarity (Zhang et al., 2015) · Monet and photo images from the class
+Kaggle competition "DATA 266 Fall 2026 – GAN Image Style Transfer" (based on "I'm Something of a Painter Myself").
